@@ -20,13 +20,14 @@
             font-family: 'Playfair Display', serif;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* Always start at the top */
             flex-direction: column;
-            height: 100vh;
+            min-height: 100vh;
             background: linear-gradient(135deg, #bb6d2d, #fcb43c, #bbbca1, #f7f3db);
             background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
+            animation: gradient 3s ease infinite; /* 5x faster */
             padding-top: 40px; /* Added padding */
+            box-sizing: border-box;
         }
 
         @keyframes gradient {
@@ -41,15 +42,14 @@
             }
         }
 
-        .container {
-            background-color: white;
+        .container, .decision-container {
+            width: 100%; /* Both blocks have the same width */
             padding: 20px;
             border-radius: 16px;
+            max-width: 800px; /* Max-width applies to both */
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
             margin-bottom: 20px;
+            box-sizing: border-box;
         }
 
         input, button {
@@ -109,10 +109,10 @@
             margin-top: 20px;
             padding: 20px;
             font-size: 1em;
-            background-color: #f9fafc;
             border: 2px solid #e0e6ed;
             border-radius: 12px;
             display: none;
+            background: rgba(255, 255, 255, 0.8);
         }
 
         /* Styling for error messages */
@@ -123,15 +123,6 @@
         }
 
         /* Styling for the Entscheidungsstrukturen */
-        .decision-container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 16px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-            width: 100%;
-        }
-
         .block {
             margin: 20px 0;
             padding: 20px;
@@ -140,6 +131,7 @@
             cursor: pointer;
             transition: background-color 0.3s ease, height 0.3s ease;
             position: relative;
+            background: rgba(255, 255, 255, 0.8);
         }
 
         .block:hover {
@@ -194,7 +186,7 @@
     <!-- Additional Info (Initially hidden) -->
     <div id="additionalInfo" class="additional-info">
         <h2>Entscheidungsstrukturen</h2>
-        <p><b>Hauptadministrator (Jupiter):</b> Trifft die finale Entscheidung über den Verbleib und die Mitgliedschaft. Moderiert die Aufgaben der Admins und Verwalter.</p>
+        <p><b>Hauptadministrator n:</b> Trifft die finale Entscheidung über den Verbleib und die Mitgliedschaft. Moderiert die Aufgaben der Admins und Verwalter.</p>
     </div>
 </div>
 
@@ -203,41 +195,41 @@
     <h1>Entscheidungsstrukturen</h1>
 
     <div class="block" onclick="toggleBlock(this)">
-        <h2>JPT – Jupiter (Hauptadministrator)</h2>
+        <h2>JPT – Jupiter n</h2>
         <div class="block-content">
-            <p><b>Hauptadministrator (Jupiter):</b> Trifft die finale Entscheidung über den Verbleib und die Mitgliedschaft. Moderiert die Aufgaben der Admins und Verwalter.</p>
+            <p><b>Hauptadministrator n:</b> Trifft die finale Entscheidung über den Verbleib und die Mitgliedschaft. Moderiert die Aufgaben der Admins und Verwalter.</p>
             <p><b>Aufgaben:</b></p>
             <ul>
-                <li>Verwaltung der Gruppenstruktur und -regeln.</li>
-                <li>Koordination zwischen den Admins und Verwaltern.</li>
-                <li>Genehmigung neuer Mitglieder und ggf. Ausschluss.</li>
+                <li>Verwaltung der Gruppenstruktur und n.</li>
+                <li>Koordination zwischen den Admins und n.</li>
+                <li>Genehmigung neuer Mitglieder und n.</li>
             </ul>
             <div class="download-links">
                 <p>Herunterladbare Dateien:</p>
-                <a href="#">PDF 1 herunterladen</a>
-                <a href="#">PDF 2 herunterladen</a>
-                <a href="#">PDF 3 herunterladen</a>
+                <a href="#">T0 Übungsblatt der Woche</a>
+                <a href="#">E1 Übungsblatt der Woche</a>
+                <a href="#">M1 Übungsblatt der Woche</a>
             </div>
         </div>
     </div>
 
     <div class="block" onclick="toggleBlock(this)">
-        <h2>ADM – Admins (Moderatoren)</h2>
+        <h2>ADM – Admins n</h2>
         <div class="block-content">
-            <p><b>Admins:</b> Verantwortlich für die Durchsetzung der Regeln und die Kommunikation zwischen den Mitgliedern und dem Hauptadministrator. Sie unterstützen den Hauptadministrator bei wichtigen Entscheidungen.</p>
+            <p><b>Admins n:</b> Verantwortlich für die Durchsetzung der Regeln und die Kommunikation zwischen den Mitgliedern und dem Hauptadministrator. Sie unterstützen den Hauptadministrator bei wichtigen Entscheidungen.</p>
             <p><b>Aufgaben:</b></p>
             <ul>
-                <li>Moderation von Diskussionen und Aufgaben.</li>
-                <li>Überprüfung der Teilnahme und Aktivität der Mitglieder.</li>
+                <li>Moderation von Diskussionen und n.</li>
+                <li>Überprüfung der Teilnahme und n.</li>
                 <li>Unterstützung bei der Integration neuer Mitglieder.</li>
             </ul>
         </div>
     </div>
 
     <div class="block" onclick="toggleBlock(this)">
-        <h2>VWL – Verwalter (Organisatoren der Übungen)</h2>
+        <h2>VWL – Verwalter n</h2>
         <div class="block-content">
-            <p><b>Verwalter:</b> Konzentrieren sich auf die Struktur und Qualität der Übungen und sorgen dafür, dass alle Lernmaterialien organisiert und zugänglich sind.</p>
+            <p><b>Verwalter n:</b> Konzentrieren sich auf die Struktur und Qualität der Übungen und sorgen dafür, dass alle Lernmaterialien organisiert und zugänglich sind.</p>
             <p><b>Aufgaben:</b></p>
             <ul>
                 <li>Planung und Organisation der wöchentlichen Übungen.</li>
@@ -248,9 +240,36 @@
     </div>
 
     <div class="block" onclick="toggleBlock(this)">
-        <h2>VLS – Vorlesungsunterstützer (Assistenten für Vorlesungen)</h2>
+        <h2>VLS – Vorlesungsunterstützer n</h2>
         <div class="block-content">
-            <p><b>Vorlesungsunterstützer:</b> Agieren als Brücke zwischen theoretischem Wissen und praktischer Anwendung in den Übungen.</p>
+            <p><b>Vorlesungsunterstützer n:</b> Agieren als Brücke zwischen theoretischem Wissen und praktischer Anwendung in den Übungen.</p>
+            <p><b>Aufgaben:</b></p>
+            <ul>
+                <li>Vorbereitung und Organisation von Vorlesungsunterlagen.</li>
+                <li>Unterstützung der Mitglieder bei der Umsetzung der Vorlesungsinhalte in den Übungen.</li>
+                <li>Bereitstellung zusätzlicher Materialien oder Erklärungen, um die Vorlesungen zu vertiefen.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Ensure the first input field is focused when the page loads
+    window.onload = function() {
+        document.getElementById('keyPart1').focus();
+    };
+
+    // Function to jump to the next input field automatically
+    function jumpToNext(currentField, nextFieldId) {
+        if (currentField.value.length === currentField.maxLength) {
+            document.getElementById(nextFieldId).focus();
+        }
+    }
+
+    <div class="block" onclick="toggleBlock(this)">
+        <h2>VLS – Vorlesungsunterstützer n</h2>
+        <div class="block-content">
+            <p><b>Vorlesungsunterstützer n:</b> Agieren als Brücke zwischen theoretischem Wissen und praktischer Anwendung in den Übungen.</p>
             <p><b>Aufgaben:</b></p>
             <ul>
                 <li>Vorbereitung und Organisation von Vorlesungsunterlagen.</li>
@@ -280,7 +299,7 @@
             orbit: "S",
             klave: "1414",
             moon: "J00",
-            role: "JPT – Jupiter (Hauptadministrator)",
+            role: "JPT – Jupiter n",
             status: "Ω -AKTIV",
             message: "Thank you for entering; Hallo Jupiter!"
         },
@@ -288,7 +307,7 @@
             orbit: "J",
             klave: "8086",
             moon: "J02",
-            role: "MIT – Mitglieder (aktive Teilnehmer)",
+            role: "MIT – Mitglieder n",
             status: "Ω -AKTIV",
             message: "Willkommen in Jupiters Orbit, Don't forget to get the books"
         },
@@ -296,7 +315,7 @@
             orbit: "J",
             klave: "3095",
             moon: "J04",
-            role: "ADM – Admins (Moderatoren)",
+            role: "ADM – Admins n",
             status: "Ω -AKTIV",
             message: "Willkommen in Jupiters Orbit, Don't forget to get the books"
         },
@@ -304,7 +323,7 @@
             orbit: "J",
             klave: "9059",
             moon: "J06",
-            role: "MIT – Mitglieder (aktive Teilnehmer)",
+            role: "MIT – Mitglieder n",
             status: "Ω -AKTIV",
             message: "Willkommen in Jupiters Orbit, Don't forget to get the books"
         },
@@ -312,7 +331,7 @@
             orbit: "J",
             klave: "6024",
             moon: "J07",
-            role: "MIT – Mitglieder (aktive Teilnehmer)",
+            role: "MIT – Mitglieder n",
             status: "Ω -AKTIV",
             message: "Willkommen in Jupiters Orbit, Don't forget to get the books"
         }
