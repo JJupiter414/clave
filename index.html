@@ -5,20 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jupiters Konklave - Schlüsselprüfung</title>
     <style>
+        /* Importing Google Fonts */
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 
+        /* Reset margins and paddings */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        /* Overall page styling */
         body {
             font-family: 'Playfair Display', serif;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             background: linear-gradient(135deg, #bb6d2d, #fcb43c, #bbbca1, #f7f3db);
             background-size: 400% 400%;
             animation: gradient 15s ease infinite;
-            margin: 0;
-            padding: 0;
         }
 
         @keyframes gradient {
@@ -35,10 +41,10 @@
 
         .container {
             background-color: white;
-            padding: 30px;
+            padding: 20px;
             border-radius: 16px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
+            max-width: 500px;
             width: 100%;
             text-align: center;
         }
@@ -49,18 +55,19 @@
             margin: 12px 0;
             font-size: 1em;
             border-radius: 12px;
-            border: 2px solid #fcb43c;
-            background-color: #fff2d5;
-            color: #4b3621;
+            border: 2px solid #e0e6ed;
+            background-color: #fff;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s ease;
         }
 
         input:focus {
-            border-color: #bb6d2d;
+            border-color: #4b9cff;
             outline: none;
         }
 
         button {
-            background-color: #bb6d2d;
+            background-color: #4b9cff;
             color: white;
             cursor: pointer;
             font-weight: bold;
@@ -69,30 +76,47 @@
         }
 
         button:hover {
-            background-color: #8b4513;
+            background-color: #3578e5;
+        }
+
+        /* Key inputs container for a grid-like layout */
+        .key-inputs {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .key-inputs input {
+            text-align: center;
+            width: 32%;
         }
 
         h1 {
-            font-size: 2em;
-            color: #bb6d2d;
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 20px;
         }
 
         p {
-            color: #4b3621;
+            color: #666;
+            margin-bottom: 20px;
         }
 
-        .result, .decision-structure {
+        .result, .additional-info {
             margin-top: 20px;
             padding: 20px;
             font-size: 1em;
-            background-color: #f9f3e2;
+            background-color: #f9fafc;
+            border: 2px solid #e0e6ed;
             border-radius: 12px;
-            color: #4b3621;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            display: none;
         }
 
-        .hidden {
-            display: none;
+        /* Styling for error messages */
+        .error {
+            color: #d9534f;
+            background-color: #f2dede;
+            border-color: #ebcccc;
         }
     </style>
 </head>
@@ -108,42 +132,15 @@
     </div>
     <button onclick="checkKey()">Prüfen</button>
     
-    <div id="result" class="result hidden"></div>
-    <div id="decision-structure" class="decision-structure hidden">
+    <div id="result" class="result"></div>
+
+    <!-- Error Message (optional) -->
+    <div id="error-message" class="result error"></div>
+
+    <!-- Additional Info (Initially hidden) -->
+    <div id="additionalInfo" class="additional-info">
         <h2>Entscheidungsstrukturen</h2>
         <p><b>Hauptadministrator (Jupiter):</b> Trifft die finale Entscheidung über den Verbleib und die Mitgliedschaft. Moderiert die Aufgaben der Admins und Verwalter.</p>
-        <p><b>Admins:</b> Verantwortlich für die Durchsetzung der Regeln und die Kommunikation zwischen den Mitgliedern und dem Hauptadministrator. Sie unterstützen den Hauptadministrator bei wichtigen Entscheidungen.</p>
-        <p><b>Verwalter:</b> Konzentrieren sich auf die Struktur und Qualität der Übungen und sorgen dafür, dass alle Lernmaterialien organisiert und zugänglich sind.</p>
-        <p><b>Vorlesungsunterstützer:</b> Agieren als Brücke zwischen theoretischem Wissen und praktischer Anwendung in den Übungen.</p>
-        <br>
-        <p><b>Rollen:</b></p>
-        <p>JPT – Jupiter (Hauptadministrator)</p>
-        <p>ADM – Admins (Moderatoren)</p>
-        <p>VWL – Verwalter (Organisatoren der Übungen)</p>
-        <p>VLS – Vorlesungsunterstützer (Assistenten für Vorlesungen)</p>
-        <p>MIT – Mitglieder (aktive Teilnehmer)</p>
-        <p>BOB – Beobachter (Nicht-aktive Mitglieder)</p>
-        <br>
-        <h3>Verantwortlichkeiten und Aufgaben:</h3>
-        <p><b>1. Jupiter (Hauptadministrator)</b></p>
-        <ul>
-            <li>Verantwortung: Gesamtleitung der Gruppe, trifft finale Entscheidungen über die Mitgliedschaft und strategische Ausrichtung.</li>
-            <li>Verwaltung der Gruppenstruktur und -regeln.</li>
-            <li>Koordination zwischen den Admins und Verwaltern.</li>
-            <li>Genehmigung neuer Mitglieder und ggf. Ausschluss.</li>
-            <li>Gesamtüberblick über Lernfortschritt und -ziele.</li>
-        </ul>
-        <p><b>2. Admins (Moderatoren)</b></p>
-        <ul>
-            <li>Verantwortlich für die tägliche Überwachung.</li>
-            <li>Moderation von Diskussionen und Aufgaben.</li>
-            <li>Unterstützung bei der Integration neuer Mitglieder.</li>
-        </ul>
-        <p><b>3. Verwalter</b></p>
-        <ul>
-            <li>Planung und Organisation der wöchentlichen Übungen.</li>
-            <li>Koordination von Kleingruppen für spezifische Aufgaben.</li>
-        </ul>
     </div>
 </div>
 
@@ -160,14 +157,50 @@
         }
     }
 
-    // Example data for key checking
+    // Example data to simulate the key check
     const validKeys = {
-        "J-1404-00": { message: "Schlüssel verifiziert: Jupiter (Hauptadministrator)" },
-        "J-8086-02": { message: "Schlüssel verifiziert: Mitglied akzeptiert" },
-        "J-3095-04": { message: "Schlüssel verifiziert: Admin akzeptiert" }
+        "J-1414-00": {
+            orbit: "S",
+            klave: "1414",
+            moon: "J00",
+            role: "JPT – Jupiter (Hauptadministrator)",
+            status: "Ω -AKTIV",
+            message: "Thank you for entering; Hallo Jupiter!"
+        },
+        "J-8086-02": {
+            orbit: "J",
+            klave: "8086",
+            moon: "J02",
+            role: "MIT – Mitglieder (aktive Teilnehmer)",
+            status: "Ω -AKTIV",
+            message: "Willkommen in Jupiters Orbit, Don't forget to get the books"
+        },
+        "J-3095-04": {
+            orbit: "J",
+            klave: "3095",
+            moon: "J04",
+            role: "ADM – Admins (Moderatoren)",
+            status: "Ω -AKTIV",
+            message: "Willkommen in Jupiters Orbit, Don't forget to get the books"
+        },
+        "J-9059-06": {
+            orbit: "J",
+            klave: "9059",
+            moon: "J06",
+            role: "MIT – Mitglieder (aktive Teilnehmer)",
+            status: "Ω -AKTIV",
+            message: "Willkommen in Jupiters Orbit, Don't forget to get the books"
+        },
+        "J-6024-07": {
+            orbit: "J",
+            klave: "6024",
+            moon: "J07",
+            role: "MIT – Mitglieder (aktive Teilnehmer)",
+            status: "Ω -AKTIV",
+            message: "Willkommen in Jupiters Orbit, Don't forget to get the books"
+        }
     };
 
-    // Function to check the key and display results
     function checkKey() {
         const keyPart1 = document.getElementById('keyPart1').value;
         const keyPart2 = document.getElementById('keyPart2').value;
@@ -175,16 +208,26 @@
         const key = `${keyPart1}-${keyPart2}-${keyPart3}`;
         
         const resultDiv = document.getElementById('result');
-        const decisionStructureDiv = document.getElementById('decision-structure');
+        const errorDiv = document.getElementById('error-message');
+        const additionalInfo = document.getElementById('additionalInfo');
 
         if (validKeys[key]) {
-            resultDiv.innerHTML = validKeys[key].message;
-            resultDiv.classList.remove('hidden');
-            decisionStructureDiv.classList.remove('hidden');
+            const data = validKeys[key];
+            resultDiv.innerHTML = `
+                <p>Orbit: ${data.orbit} - ${data.moon}</p>
+                <p>Klave: ${data.klave}</p>
+                <p>You are registered as ${data.status}</p>
+                <p>You have been assigned the role of ${data.role}</p>
+                <p>The Admins want you to know: ${data.message}</p>
+            `;
+            resultDiv.style.display = "block";
+            errorDiv.style.display = "none";
+            additionalInfo.style.display = "block";
         } else {
-            resultDiv.innerHTML = "Ungültiger Schlüssel!";
-            resultDiv.classList.remove('hidden');
-            decisionStructureDiv.classList.add('hidden');
+            errorDiv.innerHTML = "Ungültiger Schlüssel!";
+            resultDiv.style.display = "none";
+            additionalInfo.style.display = "none";
+            errorDiv.style.display = "block";
         }
     }
 </script>
