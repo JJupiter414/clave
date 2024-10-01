@@ -14,6 +14,7 @@
             padding: 0;
             height: 100%;
             box-sizing: border-box;
+            overflow-x: hidden;
         }
 
         /* Overall page styling */
@@ -21,14 +22,13 @@
             font-family: 'Playfair Display', serif;
             display: flex;
             justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            min-height: 100vh;
+            align-items: flex-start; /* Align items to the top */
             background: linear-gradient(135deg, #bb6d2d, #fcb43c, #bbbca1, #f7f3db);
             background-size: 400% 400%;
             animation: gradient 3s ease infinite;
             box-sizing: border-box;
-            overflow-y: auto; /* Enable scrolling */
+            padding-top: 20px;
+            overflow-y: scroll; /* Enable scrolling */
         }
 
         @keyframes gradient {
