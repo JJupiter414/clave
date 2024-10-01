@@ -13,6 +13,7 @@
             margin: 0;
             padding: 0;
             height: 100%;
+            box-sizing: border-box;
         }
 
         /* Overall page styling */
@@ -50,6 +51,7 @@
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             box-sizing: border-box;
+            background: rgba(255, 255, 255, 0.8); /* No white background, just a subtle opacity */
         }
 
         input, button {
@@ -238,33 +240,6 @@
             </ul>
         </div>
     </div>
-
-    <div class="block" onclick="toggleBlock(this)">
-        <h2>VLS – Vorlesungsunterstützer n</h2>
-        <div class="block-content">
-            <p><b>Vorlesungsunterstützer n:</b> Agieren als Brücke zwischen theoretischem Wissen und praktischer Anwendung in den Übungen.</p>
-            <p><b>Aufgaben:</b></p>
-            <ul>
-                <li>Vorbereitung und Organisation von Vorlesungsunterlagen.</li>
-                <li>Unterstützung der Mitglieder bei der Umsetzung der Vorlesungsinhalte in den Übungen.</li>
-                <li>Bereitstellung zusätzlicher Materialien oder Erklärungen, um die Vorlesungen zu vertiefen.</li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-<script>
-    // Ensure the first input field is focused when the page loads
-    window.onload = function() {
-        document.getElementById('keyPart1').focus();
-    };
-
-    // Function to jump to the next input field automatically
-    function jumpToNext(currentField, nextFieldId) {
-        if (currentField.value.length === currentField.maxLength) {
-            document.getElementById(nextFieldId).focus();
-        }
-    }
 
     <div class="block" onclick="toggleBlock(this)">
         <h2>VLS – Vorlesungsunterstützer n</h2>
