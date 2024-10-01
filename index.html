@@ -14,6 +14,7 @@
             padding: 0;
             height: 100%;
             box-sizing: border-box;
+            overflow: hidden; /* Disable scrolling */
         }
 
         /* Overall page styling */
@@ -21,13 +22,12 @@
             font-family: 'Playfair Display', serif;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Always start at the top */
+            align-items: center;
             flex-direction: column;
             min-height: 100vh;
             background: linear-gradient(135deg, #bb6d2d, #fcb43c, #bbbca1, #f7f3db);
             background-size: 400% 400%;
-            animation: gradient 3s ease infinite; /* 5x faster */
-            padding-top: 40px; /* Added padding */
+            animation: gradient 3s ease infinite;
             box-sizing: border-box;
         }
 
@@ -44,14 +44,14 @@
         }
 
         .container, .decision-container {
-            width: 100%; /* Both blocks have the same width */
+            width: 100%; 
             padding: 20px;
             border-radius: 16px;
-            max-width: 800px; /* Max-width applies to both */
+            max-width: 800px; 
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             box-sizing: border-box;
-            background: rgba(255, 255, 255, 0.8); /* No white background, just a subtle opacity */
+            background: rgba(255, 255, 255, 0.8);
         }
 
         input, button {
@@ -188,7 +188,7 @@
     <!-- Additional Info (Initially hidden) -->
     <div id="additionalInfo" class="additional-info">
         <h2>Entscheidungsstrukturen</h2>
-        <p><b>Hauptadministrator n:</b> Trifft die finale Entscheidung über den Verbleib und die Mitgliedschaft. Moderiert die Aufgaben der Admins und Verwalter.</p>
+        <p><b>Hauptadministrator:</b> Trifft die finale Entscheidung über den Verbleib und die Mitgliedschaft. Moderiert die Aufgaben der Admins und Verwalter.</p>
     </div>
 </div>
 
@@ -197,18 +197,18 @@
     <h1>Entscheidungsstrukturen</h1>
 
     <div class="block" onclick="toggleBlock(this)">
-        <h2>JPT – Jupiter n</h2>
+        <h2>JPT – Jupiter</h2>
         <div class="block-content">
-            <p><b>Hauptadministrator n:</b> Trifft die finale Entscheidung über den Verbleib und die Mitgliedschaft. Moderiert die Aufgaben der Admins und Verwalter.</p>
+            <p><b>Hauptadministrator:</b> Trifft die finale Entscheidung über den Verbleib und die Mitgliedschaft. Moderiert die Aufgaben der Admins und Verwalter.</p>
             <p><b>Aufgaben:</b></p>
             <ul>
-                <li>Verwaltung der Gruppenstruktur und n.</li>
-                <li>Koordination zwischen den Admins und n.</li>
-                <li>Genehmigung neuer Mitglieder und n.</li>
+                <li>Verwaltung der Gruppenstruktur und Regeln.</li>
+                <li>Koordination zwischen den Admins und Verwaltern.</li>
+                <li>Genehmigung neuer Mitglieder und ggf. Ausschluss.</li>
             </ul>
             <div class="download-links">
                 <p>Herunterladbare Dateien:</p>
-                <a href="#">T0 Übungsblatt der Woche</a>
+                <a href="https://pdfupload.io/docs/c76b2384" target="_blank">T0 Übungsblatt der Woche</a>
                 <a href="#">E1 Übungsblatt der Woche</a>
                 <a href="#">M1 Übungsblatt der Woche</a>
             </div>
@@ -216,22 +216,22 @@
     </div>
 
     <div class="block" onclick="toggleBlock(this)">
-        <h2>ADM – Admins n</h2>
+        <h2>ADM – Admins</h2>
         <div class="block-content">
-            <p><b>Admins n:</b> Verantwortlich für die Durchsetzung der Regeln und die Kommunikation zwischen den Mitgliedern und dem Hauptadministrator. Sie unterstützen den Hauptadministrator bei wichtigen Entscheidungen.</p>
+            <p><b>Admins:</b> Verantwortlich für die Durchsetzung der Regeln und die Kommunikation zwischen den Mitgliedern und dem Hauptadministrator. Sie unterstützen den Hauptadministrator bei wichtigen Entscheidungen.</p>
             <p><b>Aufgaben:</b></p>
             <ul>
-                <li>Moderation von Diskussionen und n.</li>
-                <li>Überprüfung der Teilnahme und n.</li>
+                <li>Moderation von Diskussionen und Aufgaben.</li>
+                <li>Überprüfung der Teilnahme und Aktivität der Mitglieder.</li>
                 <li>Unterstützung bei der Integration neuer Mitglieder.</li>
             </ul>
         </div>
     </div>
 
     <div class="block" onclick="toggleBlock(this)">
-        <h2>VWL – Verwalter n</h2>
+        <h2>VWL – Verwalter</h2>
         <div class="block-content">
-            <p><b>Verwalter n:</b> Konzentrieren sich auf die Struktur und Qualität der Übungen und sorgen dafür, dass alle Lernmaterialien organisiert und zugänglich sind.</p>
+            <p><b>Verwalter:</b> Konzentrieren sich auf die Struktur und Qualität der Übungen und sorgen dafür, dass alle Lernmaterialien organisiert und zugänglich sind.</p>
             <p><b>Aufgaben:</b></p>
             <ul>
                 <li>Planung und Organisation der wöchentlichen Übungen.</li>
@@ -242,9 +242,9 @@
     </div>
 
     <div class="block" onclick="toggleBlock(this)">
-        <h2>VLS – Vorlesungsunterstützer n</h2>
+        <h2>VLS – Vorlesungsunterstützer</h2>
         <div class="block-content">
-            <p><b>Vorlesungsunterstützer n:</b> Agieren als Brücke zwischen theoretischem Wissen und praktischer Anwendung in den Übungen.</p>
+            <p><b>Vorlesungsunterstützer:</b> Agieren als Brücke zwischen theoretischem Wissen und praktischer Anwendung in den Übungen.</p>
             <p><b>Aufgaben:</b></p>
             <ul>
                 <li>Vorbereitung und Organisation von Vorlesungsunterlagen.</li>
@@ -274,7 +274,7 @@
             orbit: "S",
             klave: "1414",
             moon: "J00",
-            role: "JPT – Jupiter n",
+            role: "JPT – Jupiter",
             status: "Ω -AKTIV",
             message: "Thank you for entering; Hallo Jupiter!"
         },
@@ -282,7 +282,7 @@
             orbit: "J",
             klave: "8086",
             moon: "J02",
-            role: "MIT – Mitglieder n",
+            role: "MIT – Mitglieder",
             status: "Ω -AKTIV",
             message: "Willkommen in Jupiters Orbit, Don't forget to get the books"
         },
@@ -290,7 +290,7 @@
             orbit: "J",
             klave: "3095",
             moon: "J04",
-            role: "ADM – Admins n",
+            role: "ADM – Admins",
             status: "Ω -AKTIV",
             message: "Willkommen in Jupiters Orbit, Don't forget to get the books"
         },
@@ -298,7 +298,7 @@
             orbit: "J",
             klave: "9059",
             moon: "J06",
-            role: "MIT – Mitglieder n",
+            role: "MIT – Mitglieder",
             status: "Ω -AKTIV",
             message: "Willkommen in Jupiters Orbit, Don't forget to get the books"
         },
@@ -306,7 +306,7 @@
             orbit: "J",
             klave: "6024",
             moon: "J07",
-            role: "MIT – Mitglieder n",
+            role: "MIT – Mitglieder",
             status: "Ω -AKTIV",
             message: "Willkommen in Jupiters Orbit, Don't forget to get the books"
         }
