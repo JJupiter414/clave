@@ -14,7 +14,7 @@
             padding: 0;
             height: 100%;
             box-sizing: border-box;
-            overflow: hidden; /* Disable scrolling */
+            overflow-y: auto; /* Scrolling enabled */
         }
 
         /* Overall page styling */
@@ -159,14 +159,8 @@
             display: block;
             margin-top: 5px;
             text-decoration: none;
-            color: #3578e5;
-        }
-
-        .download-links a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
+            color: #
+            }
 <body>
 
 <!-- Schlüsselprüfung Section -->
@@ -270,9 +264,9 @@
 
     // Example data to simulate the key check
     const validKeys = {
-        "J-1414-00": {
+        "J-1404-00": {
             orbit: "S",
-            klave: "1414",
+            klave: "1404",
             moon: "J00",
             role: "JPT – Jupiter",
             status: "Ω -AKTIV",
@@ -309,6 +303,14 @@
             role: "MIT – Mitglieder",
             status: "Ω -AKTIV",
             message: "Willkommen in Jupiters Orbit, Don't forget to get the books"
+        },
+        "J-0000-99": {
+            orbit: "J",
+            klave: "0000",
+            moon: "J99",
+            role: "Test User",
+            status: "Ω -TEST",
+            message: "This is a test entry."
         }
     };
 
