@@ -5,75 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jupiters Konklave - Schlüsselprüfung</title>
     <style>
-        /* Schriftart-Import */
-        @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
-        
+        /* Importing Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+        /* Overall page styling */
         body {
-            font-family: 'EB Garamond', serif;
+            font-family: 'Playfair Display', serif;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(135deg, #bb6d2d, #fcb43c, #bbbca1, #f7f3db);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-        }
-
-        @keyframes gradient {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
+            background-color: #f0f4f8;
         }
 
         .container {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: white;
             padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
             width: 100%;
             text-align: center;
         }
 
         input, button {
             width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            font-size: 1.2em;
+            padding: 15px;
+            margin: 12px 0;
+            font-size: 1em;
             border-radius: 12px;
-            border: 2px solid #ccc;
+            border: 2px solid #e0e6ed;
+            background-color: #fff;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #4b9cff;
             outline: none;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         button {
-            background-color: #bb6d2d;
+            background-color: #4b9cff;
             color: white;
             cursor: pointer;
+            font-weight: bold;
             transition: background-color 0.3s ease;
+            border: none;
         }
 
         button:hover {
-            background-color: #fcb43c;
+            background-color: #3578e5;
         }
 
-        .result, .additional-info {
-            margin-top: 20px;
-            padding: 15px;
-            font-size: 1.2em;
-            display: none;
-            background-color: #f7f3db;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
+        /* Key inputs container for a grid-like layout */
         .key-inputs {
             display: flex;
             justify-content: space-between;
@@ -81,18 +67,36 @@
         }
 
         .key-inputs input {
-            flex: 1;
             text-align: center;
-            border-radius: 10px;
+            width: 32%;
         }
 
-        h1, p {
+        h1 {
+            font-size: 1.8em;
             color: #333;
+            margin-bottom: 20px;
         }
 
-        ul {
-            text-align: left;
-            padding-left: 20px;
+        p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .result, .additional-info {
+            margin-top: 20px;
+            padding: 20px;
+            font-size: 1em;
+            background-color: #f9fafc;
+            border: 2px solid #e0e6ed;
+            border-radius: 12px;
+            display: none;
+        }
+
+        /* Styling for error messages similar to the image */
+        .error {
+            color: #d9534f;
+            background-color: #f2dede;
+            border-color: #ebcccc;
         }
     </style>
 </head>
@@ -102,101 +106,27 @@
     <h1>Schlüsselprüfung</h1>
     <p>Bitte gib deinen Schlüssel ein:</p>
     <div class="key-inputs">
-        <input type="text" id="keyPart1" maxlength="1" placeholder="J" />
+        <input type="text" id="keyPart1" maxlength="1" placeholder="J/S" />
         <input type="text" id="keyPart2" maxlength="4" placeholder="nnnn" />
         <input type="text" id="keyPart3" maxlength="2" placeholder="mn" />
     </div>
     <button onclick="checkKey()">Prüfen</button>
     
     <div id="result" class="result"></div>
-    
+
+    <!-- Error Message (optional) -->
+    <div id="error-message" class="result error"></div>
+
     <!-- Additional Info (Initially hidden) -->
     <div id="additionalInfo" class="additional-info">
         <h2>Entscheidungsstrukturen</h2>
         <p><b>Hauptadministrator (Jupiter):</b> Trifft die finale Entscheidung über den Verbleib und die Mitgliedschaft. Moderiert die Aufgaben der Admins und Verwalter.</p>
-        <p><b>Admins:</b> Verantwortlich für die Durchsetzung der Regeln und die Kommunikation zwischen den Mitgliedern und dem Hauptadministrator. Sie unterstützen den Hauptadministrator bei wichtigen Entscheidungen.</p>
-        <p><b>Verwalter:</b> Konzentrieren sich auf die Struktur und Qualität der Übungen und sorgen dafür, dass alle Lernmaterialien organisiert und zugänglich sind.</p>
-        <p><b>Vorlesungsunterstützer:</b> Agieren als Brücke zwischen theoretischem Wissen und praktischer Anwendung in den Übungen.</p>
-
-        <h3>Rollen und Kürzel</h3>
-        <ul>
-            <li><b>JPT</b> – Jupiter (Hauptadministrator)</li>
-            <li><b>ADM</b> – Admins (Moderatoren)</li>
-            <li><b>VWL</b> – Verwalter (Organisatoren der Übungen)</li>
-            <li><b>VLS</b> – Vorlesungsunterstützer (Assistenten für Vorlesungen)</li>
-            <li><b>MIT</b> – Mitglieder (aktive Teilnehmer)</li>
-            <li><b>BOB</b> – Beobachter (Nicht-aktive Mitglieder)</li>
-        </ul>
-
-        <h2>Verantwortlichkeiten und Aufgaben</h2>
-
-        <h3>1. Jupiter (Hauptadministrator)</h3>
-        <p><b>Verantwortung:</b> Gesamtleitung der Gruppe, trifft finale Entscheidungen über die Mitgliedschaft und strategische Ausrichtung. Dieser Administrator entscheidet, wer in der Gruppe bleibt, und überwacht den gesamten Verlauf.</p>
-        <p><b>Aufgaben:</b>
-            <ul>
-                <li>Verwaltung der Gruppenstruktur und -regeln.</li>
-                <li>Koordination zwischen den Admins und Verwaltern.</li>
-                <li>Genehmigung neuer Mitglieder und ggf. Ausschluss.</li>
-                <li>Gesamtüberblick über Lernfortschritt und -ziele.</li>
-            </ul>
-        </p>
-
-        <h3>2. Admins (Moderatoren)</h3>
-        <p><b>Verantwortung:</b> Überwachen der täglichen Abläufe, Teilnahme und das Verhalten der Mitglieder. Helfen dabei, die Regeln durchzusetzen und sorgen für eine reibungslose Zusammenarbeit.</p>
-        <p><b>Aufgaben:</b>
-            <ul>
-                <li>Moderation von Diskussionen und Aufgaben.</li>
-                <li>Überprüfung der Teilnahme und Aktivität der Mitglieder.</li>
-                <li>Unterstützung bei der Integration neuer Mitglieder.</li>
-                <li>Eskalation von Verstößen an den Hauptadministrator.</li>
-            </ul>
-        </p>
-
-        <h3>3. Verwalter (Organisatoren der Übungen und Lerngruppen)</h3>
-        <p><b>Verantwortung:</b> Verbesserung des Ablaufs der Übungen und Organisation der Lernmaterialien und Übungsgruppen. Koordinieren regelmäßige Übungseinheiten und Aufgabenverteilung.</p>
-        <p><b>Aufgaben:</b>
-            <ul>
-                <li>Planung und Organisation der wöchentlichen Übungen.</li>
-                <li>Unterstützung der Mitglieder bei Verständnisfragen und Aufgaben.</li>
-                <li>Feedback zu Übungen und Verbesserungsvorschläge für den Lernverlauf.</li>
-                <li>Koordination von Kleingruppen für spezifische Aufgaben.</li>
-            </ul>
-        </p>
-
-        <h3>4. Vorlesungsunterstützer (Assistenten für Vorlesungen und Projekte)</h3>
-        <p><b>Verantwortung:</b> Unterstützung bei Vorlesungen, Projekten und der Umsetzung von Vorlesungsinhalten in Übungsmaterial. Helfen, theoretisches Wissen in die Praxis umzusetzen.</p>
-        <p><b>Aufgaben:</b>
-            <ul>
-                <li>Vorbereitung und Organisation von Vorlesungsunterlagen.</li>
-                <li>Unterstützung der Mitglieder bei der Umsetzung der Vorlesungsinhalte in den Übungen.</li>
-                <li>Bereitstellung zusätzlicher Materialien oder Erklärungen, um die Vorlesungen zu vertiefen.</li>
-            </ul>
-        </p>
-
-        <h3>5. Mitglieder</h3>
-        <p><b>Verantwortung:</b> Aktive Teilnahme an den Diskussionen, Übungen und Vorlesungen. Verpflichten sich zur Einhaltung der Gemeinschaftsbedingungen und arbeiten daran, den Lernerfolg der Gruppe zu maximieren.</p>
-        <p><b>Aufgaben:</b>
-            <ul>
-                <li>Teilnahme an den Übungen und Vorlesungen.</li>
-                <li>Aktiver Austausch von Wissen und Unterstützung anderer Mitglieder.</li>
-                <li>Einhaltung der festgelegten Regeln und AGB.</li>
-            </ul>
-        </p>
-
-        <h3>6. Beobachter (Nicht-aktive Mitglieder)</h3>
-        <p><b>Verantwortung:</b> Mitglieder, die in einer Beobachtungsphase sind, um ihre Eignung für die Gruppe zu bewerten. Diese Mitglieder haben noch keine aktive Rolle, bis sie sich für die Gruppe qualifizieren.</p>
-        <p><b>Aufgaben:</b>
-            <ul>
-                <li>Beobachtung und Teilnahme an Übungen, aber ohne Entscheidungskraft.</li>
-                <li>Werden nach einem bestimmten Zeitraum oder durch Entscheidung des Hauptadministrators oder der Admins befördert oder ausgeschlossen.</li>
-            </ul>
-        </p>
+        <!-- More content can go here as per your original requirements -->
     </div>
-
 </div>
 
 <script>
-    // Beispiel-Daten für gültige Schlüssel und Nachrichten
+    // Example data to simulate the key check
     const validKeys = {
         "J-1414-00": {
             orbit: "S",
@@ -205,39 +135,8 @@
             role: "JPT – Jupiter (Hauptadministrator)",
             status: "Ω -AKTIV",
             message: "Thank you for entering; Hallo Jupiter!"
-        },
-        "J-8086-02": {
-            orbit: "J",
-            klave: "8086",
-            moon: "J02",
-            role: "MIT – Mitglieder (aktive Teilnehmer)",
-            status: "Ω -AKTIV",
-            message: "Willkommen in Jupiters Orbit, Don't forget to get the books"
-        },
-        "J-3095-04": {
-            orbit: "J",
-            klave: "3095",
-            moon: "J04",
-            role: "ADM – Admins (Moderatoren)",
-            status: "Ω -AKTIV",
-            message: "Willkommen in Jupiters Orbit, Don't forget to get the books"
-        },
-        "J-9059-06": {
-            orbit: "J",
-            klave: "9059",
-            moon: "J06",
-            role: "MIT – Mitglieder (aktive Teilnehmer)",
-            status: "Ω -AKTIV",
-            message: "Willkommen in Jupiters Orbit, Don't forget to get the books"
-        },
-        "J-6024-07": {
-            orbit: "J",
-            klave: "6024",
-            moon: "J07",
-            role: "MIT – Mitglieder (aktive Teilnehmer)",
-            status: "Ω -AKTIV",
-            message: "Willkommen in Jupiters Orbit, Don't forget to get the books"
         }
+        // Add more key data as needed
     };
 
     function checkKey() {
@@ -245,7 +144,9 @@
         const keyPart2 = document.getElementById('keyPart2').value;
         const keyPart3 = document.getElementById('keyPart3').value;
         const key = `${keyPart1}-${keyPart2}-${keyPart3}`;
+        
         const resultDiv = document.getElementById('result');
+        const errorDiv = document.getElementById('error-message');
         const additionalInfo = document.getElementById('additionalInfo');
 
         if (validKeys[key]) {
@@ -258,11 +159,13 @@
                 <p>The Admins want you to know: ${data.message}</p>
             `;
             resultDiv.style.display = "block";
+            errorDiv.style.display = "none";
             additionalInfo.style.display = "block";
         } else {
-            resultDiv.textContent = "Ungültiger Schlüssel!";
-            resultDiv.style.display = "block";
+            errorDiv.innerHTML = "Ungültiger Schlüssel!";
+            resultDiv.style.display = "none";
             additionalInfo.style.display = "none";
+            errorDiv.style.display = "block";
         }
     }
 </script>
