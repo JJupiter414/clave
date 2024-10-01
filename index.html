@@ -8,14 +8,19 @@
         /* Importing Google Fonts */
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 
+        /* Reset margins and paddings */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
         /* Overall page styling */
         body {
             font-family: 'Playfair Display', serif;
-            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             background-color: #f0f4f8;
         }
 
@@ -92,7 +97,7 @@
             display: none;
         }
 
-        /* Styling for error messages similar to the image */
+        /* Styling for error messages */
         .error {
             color: #d9534f;
             background-color: #f2dede;
@@ -106,8 +111,8 @@
     <h1>Schlüsselprüfung</h1>
     <p>Bitte gib deinen Schlüssel ein:</p>
     <div class="key-inputs">
-        <input type="text" id="keyPart1" maxlength="1" placeholder="J/S" />
-        <input type="text" id="keyPart2" maxlength="4" placeholder="nnnn" />
+        <input type="text" id="keyPart1" maxlength="1" placeholder="J/S" oninput="jumpToNext(this, 'keyPart2')" />
+        <input type="text" id="keyPart2" maxlength="4" placeholder="nnnn" oninput="jumpToNext(this, 'keyPart3')" />
         <input type="text" id="keyPart3" maxlength="2" placeholder="mn" />
     </div>
     <button onclick="checkKey()">Prüfen</button>
@@ -121,11 +126,22 @@
     <div id="additionalInfo" class="additional-info">
         <h2>Entscheidungsstrukturen</h2>
         <p><b>Hauptadministrator (Jupiter):</b> Trifft die finale Entscheidung über den Verbleib und die Mitgliedschaft. Moderiert die Aufgaben der Admins und Verwalter.</p>
-        <!-- More content can go here as per your original requirements -->
     </div>
 </div>
 
 <script>
+    // Ensure the first input field is focused when the page loads
+    window.onload = function() {
+        document.getElementById('keyPart1').focus();
+    };
+
+    // Function to jump to the next input field automatically
+    function jumpToNext(currentField, nextFieldId) {
+        if (currentField.value.length === currentField.maxLength) {
+            document.getElementById(nextFieldId).focus();
+        }
+    }
+
     // Example data to simulate the key check
     const validKeys = {
         "J-1414-00": {
@@ -135,8 +151,39 @@
             role: "JPT – Jupiter (Hauptadministrator)",
             status: "Ω -AKTIV",
             message: "Thank you for entering; Hallo Jupiter!"
+        },
+        "J-8086-02": {
+            orbit: "J",
+            klave: "8086",
+            moon: "J02",
+            role: "MIT – Mitglieder (aktive Teilnehmer)",
+            status: "Ω -AKTIV",
+            message: "Willkommen in Jupiters Orbit, Don't forget to get the books"
+        },
+        "J-3095-04": {
+            orbit: "J",
+            klave: "3095",
+            moon: "J04",
+            role: "ADM – Admins (Moderatoren)",
+            status: "Ω -AKTIV",
+            message: "Willkommen in Jupiters Orbit, Don't forget to get the books"
+        },
+        "J-9059-06": {
+            orbit: "J",
+            klave: "9059",
+            moon: "J06",
+            role: "MIT – Mitglieder (aktive Teilnehmer)",
+            status: "Ω -AKTIV",
+            message: "Willkommen in Jupiters Orbit, Don't forget to get the books"
+        },
+        "J-6024-07": {
+            orbit: "J",
+            klave: "6024",
+            moon: "J07",
+            role: "MIT – Mitglieder (aktive Teilnehmer)",
+            status: "Ω -AKTIV",
+            message: "Willkommen in Jupiters Orbit, Don't forget to get the books"
         }
-        // Add more key data as needed
     };
 
     function checkKey() {
