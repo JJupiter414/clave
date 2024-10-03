@@ -28,6 +28,7 @@
             animation: gradient 3s ease infinite;
             box-sizing: border-box;
             padding-top: 20px;
+            overflow-y: scroll; /* Enable scrolling */
         }
 
         @keyframes gradient {
@@ -42,11 +43,11 @@
             }
         }
 
-        .container, .decision-container {
-            width: 100%; 
+        .container, .decision-container, .appointment-container {
+            width: 100%;
+            max-width: 800px;
             padding: 20px;
             border-radius: 16px;
-            max-width: 800px; 
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             box-sizing: border-box;
@@ -173,7 +174,7 @@
     <h1>Schlüsselprüfung</h1>
     <p>Bitte gib deinen Schlüssel ein:</p>
     <div class="key-inputs">
-        <input type="text" id="keyPart1" maxlength="1" placeholder="J" value="J" readonly />
+        <input type="text" id="keyPart1" maxlength="1" value="J" oninput="jumpToNext(this, 'keyPart2')" />
         <input type="text" id="keyPart2" maxlength="4" placeholder="nnnn" oninput="jumpToNext(this, 'keyPart3')" />
         <input type="text" id="keyPart3" maxlength="2" placeholder="mn" />
     </div>
@@ -191,23 +192,14 @@
     </div>
 </div>
 
-<!-- Meeting Info Section -->
-<div id="appointment-info" class="result" style="display: none;">
-    <h2>Nächste Termine</h2>
-    <p><b>Type:</b> <span id="appointmentType"></span></p>
-    <p><b>Day:</b> <span id="appointmentDay1"></span></p>
-    <p><b>Date:</b> <span id="appointmentDate1"></span></p>
-    <p><b>Room:</b> <span id="appointmentRoom1"></span></p>
-    <p><b>Location:</b> <span id="appointmentLocation1"></span></p>
-    <p><b>Topic:</b> <span id="appointmentTopic1"></span></p>
-    <p><b>Duration:</b> <span id="appointmentDuration1"></span></p>
-    <hr>
-    <p><b>Day:</b> <span id="appointmentDay2"></span></p>
-    <p><b>Date:</b> <span id="appointmentDate2"></span></p>
-    <p><b>Room:</b> <span id="appointmentRoom2"></span></p>
-    <p><b>Location:</b> <span id="appointmentLocation2"></span></p>
-    <p><b>Topic:</b> <span id="appointmentTopic2"></span></p>
-    <p><b>Duration:</b> <span id="appointmentDuration2"></span></p>
+<!-- Appointments Section -->
+<div class="appointment-container">
+    <h1>Appointment</h1>
+    <div id="appointment-info">
+        <p><b>Type:</b> <span id="appointmentType"></span></p>
+        <p><b>Day 1:</b> <span id="appointmentDay1"></span>, <span id="appointmentDate1"></span>, <span id="appointmentRoom1"></span>, <span id="appointmentLocation1"></span>, <span id="appointmentTopic1"></span>, <span id="appointmentDuration1"></span></p>
+        <p><b>Day 2:</b> <span id="appointmentDay2"></span>, <span id="appointmentDate2"></span>, <span id="appointmentRoom2"></span>, <span id="appointmentLocation2"></span>, <span id="appointmentTopic2"></span>, <span id="appointmentDuration2"></span></p>
+    </div>
 </div>
 
 <!-- Entscheidungsstrukturen Section -->
@@ -270,7 +262,7 @@
                 <li>Bereitstellung zusätzlicher Materialien oder Erklärungen, um die Vorlesungen zu vertiefen.</li>
             </ul>
             <div class="download-links">
-                <p>Herunterladbare Dateien:</p>
+                <p>Herunterladbare Dateien: Automatischer Download, via click!</p>
                 <a href="Vorlesungsfolien stand2023.1.zip">T0 Vorlesungsfolien teil 1</a>
                 <a href="Vorlesungsfolien stand2023.2.zip">T0 Vorlesungsfolien teil 2</a>
                 <a href="#">E1 Vorlesungsfolien</a>
@@ -287,6 +279,13 @@
     // Ensure the first input field is focused when the page loads
     window.onload = function() {
         document.getElementById('keyPart1').focus();
+
+        // Add Enter key event listener to trigger the Prüfen button
+        document.addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+                checkKey();
+            }
+        });
     };
 
     // Function to jump to the next input field automatically
@@ -296,12 +295,12 @@
         }
     }
 
-    // Example data to simulate the key check
+    // Example data to simulate the key check and appointments
     const validKeys = {
         "J-1404-00": {
             orbit: "S - JUPITER",
-            klave: "1404",
-            role: "HADM – Hauptadministrator",
+            klave: "1401",
+            role: "JPT – Hauptadministrator",
             status: "Ω -AKTIV",
             message: "Thank you for entering; Hallo Hauptadministrator!"
         },
@@ -362,6 +361,27 @@
         }
     };
 
+    const appointments = [
+        {
+            type: "Vorlesung",
+            day: "Dienstag",
+            date: "15.10.2024",
+            room: "N 120",
+            location: "Geschw.-Scholl-Platz 1 (N)",
+            topic: "E1",
+            duration: "10:00 bis 12:00 c.t."
+        },
+        {
+            type: "Lösungsgruppe",
+            day: "Dienstag",
+            date: "15.10.2024",
+            room: "H - 030",
+            location: "Schellingstr. 04",
+            topic: "E1",
+            duration: "7 Stunden"
+        }
+    ];
+
     function checkKey() {
         const keyPart1 = document.getElementById('keyPart1').value;
         const keyPart2 = document.getElementById('keyPart2').value;
@@ -375,7 +395,7 @@
         if (validKeys[key]) {
             const data = validKeys[key];
             resultDiv.innerHTML = `
-                <p>Orbit: ${data.orbit}</p>
+                <p>Orbit: ${data.orbit} - ${data.moon}</p>
                 <p>Klave: ${data.klave}</p>
                 <p>You are registered as ${data.status}</p>
                 <p>You have been assigned the role of ${data.role}</p>
@@ -385,8 +405,8 @@
             errorDiv.style.display = "none";
             additionalInfo.style.display = "block";
 
-            // Show upcoming appointments
-            showAppointments();
+            // Display the next two appointments
+            displayNextAppointments();
         } else {
             errorDiv.innerHTML = "Ungültiger Schlüssel!";
             resultDiv.style.display = "none";
@@ -395,20 +415,16 @@
         }
     }
 
-    // Define appointment data for Vorlesungen and Lösungsgruppen
-    const appointments = [
-        { type: "Vorlesung", day: "Dienstag", date: "15.10.2024", room: "Großer Physiksaal (N 120)", location: "Geschw.-Scholl-Pl. 1 (N)", topic: "E1", duration: "10:00 bis 12:00 c.t." },
-        { type: "Vorlesung", day: "Freitag", date: "18.10.2024", room: "Großer Physiksaal (N 120)", location: "Geschw.-Scholl-Pl. 1 (N)", topic: "E1", duration: "10:00 bis 12:00 c.t." },
-        { type: "Lösungsgruppe", day: "Dienstag", date: "15.10.2024", room: "H - 030", location: "Schellingstr. 04", topic: "E1", duration: "7 Stunden" },
-        { type: "Lösungsgruppe", day: "Mittwoch", date: "16.10.2024", room: "N - 020", location: "Geschwister-Scholl-Platz 01", topic: "T0", duration: "10 Stunden" }
-    ];
-
     // Function to display the next two appointments
-    function showAppointments() {
+    function displayNextAppointments() {
+        // Sort the appointments based on date and time
+        appointments.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+        // Get the next two appointments
         const appointment1 = appointments[0];
         const appointment2 = appointments[1];
 
-        // Update HTML with appointment details
+        // Populate appointment information
         document.getElementById('appointmentType').textContent = appointment1.type;
         document.getElementById('appointmentDay1').textContent = appointment1.day;
         document.getElementById('appointmentDate1').textContent = appointment1.date;
@@ -423,9 +439,6 @@
         document.getElementById('appointmentLocation2').textContent = appointment2.location;
         document.getElementById('appointmentTopic2').textContent = appointment2.topic;
         document.getElementById('appointmentDuration2').textContent = appointment2.duration;
-
-        // Show the appointment info section
-        document.getElementById('appointment-info').style.display = "block";
     }
 
     // Toggle function for the Entscheidungsstrukturen blocks
