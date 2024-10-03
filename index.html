@@ -84,6 +84,7 @@
             background-color: #3578e5;
         }
 
+        /* Key inputs container for a grid-like layout */
         .key-inputs {
             display: flex;
             justify-content: space-between;
@@ -116,12 +117,14 @@
             background: rgba(255, 255, 255, 0.8);
         }
 
+        /* Styling for error messages */
         .error {
             color: #d9534f;
             background-color: #f2dede;
             border-color: #ebcccc;
         }
 
+        /* Styling for the Entscheidungsstrukturen */
         .block {
             margin: 20px 0;
             padding: 20px;
@@ -185,7 +188,7 @@
     <!-- Additional Info (Initially hidden) -->
     <div id="additionalInfo" class="additional-info">
         <h2>Entscheidungsstrukturen</h2>
-        <p><b>Hauptadministrator:</b> Trifft die finale Entscheidung über den Verbleib und die Mitgliedschaft. Moderiert die Aufgaben der Admins und Verwalter.</p>
+        <p><b>Hauptadministrator:</b> Trifft die finale Entscheidung über den Verbleib und die Mitgliedschaft. Moderiert die Aufgaben der Admins, Verwalter und der Vorlesungsunterstützer.</p>
     </div>
 </div>
 
@@ -193,8 +196,8 @@
 <div class="appointment-container" id="appointment-block" style="display:none;">
     <h1>Appointments</h1>
     <div id="appointment-info">
-        <p><b>Day 1:</b> <span id="appointmentDetails1"></span></p>
-        <p><b>Day 2:</b> <span id="appointmentDetails2"></span></p>
+        <p id="appointmentDetails1"></p>
+        <p id="appointmentDetails2"></p>
     </div>
 </div>
 
@@ -215,8 +218,8 @@
             <div class="download-links">
                 <p>Herunterladbare Dateien:</p>
                 <a href="https://pdfupload.io/docs/c76b2384" target="_blank">T0 Übungsblatt der Woche</a>
-                <a href="#">LEER.YET E1 Übungsblatt der Woche</a>
-                <a href="#">LEER.YET M1 Übungsblatt der Woche</a>
+                <a href="#">E1 Übungsblatt der Woche</a>
+                <a href="#">M1 Übungsblatt der Woche</a>
             </div>
         </div>
     </div>
@@ -261,17 +264,18 @@
                 <p>Herunterladbare Dateien: Automatischer Download, via click!</p>
                 <a href="Vorlesungsfolien stand2023.1.zip">T0 Vorlesungsfolien teil 1</a>
                 <a href="Vorlesungsfolien stand2023.2.zip">T0 Vorlesungsfolien teil 2</a>
-                <a href="#">LEER.YET E1 Vorlesungsfolien</a>
-                <a href="#">LEER.YET M1 Vorlesungsfolien</a>
-                <a href="#">LEER.YET T0 Vorlesungs Anhänge (Orbit)</a>
-                <a href="#">LEER.YET E1 Vorlesungs Anhänge (Orbit)</a>
-                <a href="#">LEER.YET M1 Vorlesungs Anhänge (Orbit)</a>
+                <a href="#">E1 Vorlesungsfolien</a>
+                <a href="#">M1 Vorlesungsfolien</a>
+                <a href="#">T0 Vorlesungs Anhänge (Orbit)</a>
+                <a href="#">E1 Vorlesungs Anhänge (Orbit)</a>
+                <a href="#">M1 Vorlesungs Anhänge (Orbit)</a>
             </div>
         </div>
     </div>
 </div>
 
 <script>
+    // Ensure the first input field is focused when the page loads
     window.onload = function() {
         document.getElementById('keyPart2').focus(); // Start focus on the middle input
 
@@ -283,12 +287,14 @@
         });
     };
 
+    // Function to jump to the next input field automatically
     function jumpToNext(currentField, nextFieldId) {
         if (currentField.value.length === currentField.maxLength) {
             document.getElementById(nextFieldId).focus();
         }
     }
 
+    // Example data to simulate the key check and appointments
     const validKeys = {
         "J-1404-00": {
             orbit: "S - JUPITER",
@@ -359,7 +365,7 @@
             type: "Jupiter",
             day: "Dienstag",
             date: "15.10.2024",
-            end: "28.02.2025",
+            endDate: "28.02.2025",
             room: "H - 030",
             location: "Schellingstr. 04",
             topic: "E1",
@@ -369,7 +375,7 @@
             type: "Jupiter",
             day: "Mittwoch",
             date: "16.10.2024",
-            end: "28.02.2025",
+            endDate: "28.02.2025",
             room: "N - 020",
             location: "Geschwister-Scholl-Platz 01",
             topic: "T0",
@@ -379,7 +385,7 @@
             type: "Vorlesung mit Prof. Udem",
             day: "Dienstag",
             date: "15.10.2024",
-            end: "04.02.2025",
+            endDate: "04.02.2025",
             room: "N 120",
             location: "Geschw.-Scholl-Pl. 1 (N) - Großer Physiksaal (N 120)",
             topic: "E1",
@@ -389,7 +395,7 @@
             type: "Vorlesung mit Prof. Delft",
             day: "Montag",
             date: "14.10.2024",
-            end: "03.02.2025",
+            endDate: "03.02.2025",
             room: "N 120",
             location: "Geschw.-Scholl-Pl. 1 (N) - Großer Physiksaal (N 120)",
             topic: "T0",
@@ -433,21 +439,21 @@
         }
     }
 
-    function extractStartDate(dateString) {
-        return dateString.split(' ')[0]; // Return only the start date for comparison
-    }
-
+    // Function to display the next two appointments
     function displayNextAppointments() {
-        // Sort the appointments based on start date using extractStartDate function
-        appointments.sort((a, b) => new Date(extractStartDate(a.date)) - new Date(extractStartDate(b.date)));
+        // Sort the appointments based on date and time
+        appointments.sort((a, b) => new Date(a.date) - new Date(b.date));
 
+        // Get the next two appointments
         const appointment1 = appointments[0];
         const appointment2 = appointments[1];
 
-        document.getElementById('appointmentDetails1').textContent = `${appointment1.day}, ${appointment1.date} bis ${appointment1.end}, ${appointment1.type}, ${appointment1.room}, ${appointment1.location}, ${appointment1.topic}, ${appointment1.duration}`;
-        document.getElementById('appointmentDetails2').textContent = `${appointment2.day}, ${appointment2.date} bis ${appointment2.end}, ${appointment2.type}, ${appointment2.room}, ${appointment2.location}, ${appointment2.topic}, ${appointment2.duration}`;
+        // Populate appointment information
+        document.getElementById('appointmentDetails1').textContent = `${appointment1.day}, ${appointment1.date}, bis ${appointment1.endDate}, ${appointment1.type}, ${appointment1.room}, ${appointment1.location}, ${appointment1.topic}, ${appointment1.duration}`;
+        document.getElementById('appointmentDetails2').textContent = `${appointment2.day}, ${appointment2.date}, bis ${appointment2.endDate}, ${appointment2.type}, ${appointment2.room}, ${appointment2.location}, ${appointment2.topic}, ${appointment2.duration}`;
     }
 
+    // Toggle function for the Entscheidungsstrukturen blocks
     function toggleBlock(blockElement) {
         blockElement.classList.toggle('active');
     }
