@@ -107,7 +107,7 @@
             margin-bottom: 20px;
         }
 
-        .result, .additional-info, #appointment-block {
+        .result, .additional-info {
             margin-top: 20px;
             padding: 20px;
             font-size: 1em;
@@ -192,13 +192,12 @@
     </div>
 </div>
 
-<!-- Appointments Section (Initially hidden) -->
-<div class="appointment-container" id="appointment-block" style="display: none;">
+<!-- Appointments Section -->
+<div class="appointment-container" id="appointment-block" style="display:none;">
     <h1>Appointment</h1>
     <div id="appointment-info">
-        <p><b>Type:</b> <span id="appointmentType"></span></p>
-        <p><b>Day 1:</b> <span id="appointmentDay1"></span>, <span id="appointmentDate1"></span>, <span id="appointmentRoom1"></span>, <span id="appointmentLocation1"></span>, <span id="appointmentTopic1"></span>, <span id="appointmentDuration1"></span></p>
-        <p><b>Day 2:</b> <span id="appointmentDay2"></span>, <span id="appointmentDate2"></span>, <span id="appointmentRoom2"></span>, <span id="appointmentLocation2"></span>, <span id="appointmentTopic2"></span>, <span id="appointmentDuration2"></span></p>
+        <p><b>Day 1:</b> <span id="appointmentDay1"></span>, <span id="appointmentDate1"></span>, <span id="appointmentType1"></span>, <span id="appointmentRoom1"></span>, <span id="appointmentLocation1"></span>, <span id="appointmentTopic1"></span>, <span id="appointmentDuration1"></span></p>
+        <p><b>Day 2:</b> <span id="appointmentDay2"></span>, <span id="appointmentDate2"></span>, <span id="appointmentType2"></span>, <span id="appointmentRoom2"></span>, <span id="appointmentLocation2"></span>, <span id="appointmentTopic2"></span>, <span id="appointmentDuration2"></span></p>
     </div>
 </div>
 
@@ -278,7 +277,7 @@
 <script>
     // Ensure the first input field is focused when the page loads
     window.onload = function() {
-        document.getElementById('keyPart2').focus();  // Set focus to the middle field by default
+        document.getElementById('keyPart2').focus(); // Start focus on the middle input
 
         // Add Enter key event listener to trigger the Prüfen button
         document.addEventListener("keypress", function (e) {
@@ -372,13 +371,31 @@
             duration: "7 Stunden"
         },
         {
-            type: "Vorlesung",
+            type: "Jupiter",
+            day: "Mittwoch",
+            date: "16.10.2024",
+            room: "N - 020",
+            location: "Geschwister-Scholl-Platz 01",
+            topic: "T0",
+            duration: "10 Stunden"
+        },
+        {
+            type: "Vorlesung mit Prof. Udem",
             day: "Dienstag",
-            date: "15.10.2024",
+            date: "15.10.2024 bis 04.02.2025",
             room: "N 120",
-            location: "Geschw.-Scholl-Platz 1 (N)",
+            location: "Geschw.-Scholl-Pl. 1 (N) - Großer Physiksaal (N 120)",
             topic: "E1",
             duration: "10:00 bis 12:00 c.t."
+        },
+        {
+            type: "Vorlesung mit Prof. Delft",
+            day: "Montag",
+            date: "14.10.2024 bis 03.02.2025",
+            room: "N 120",
+            location: "Geschw.-Scholl-Pl. 1 (N) - Großer Physiksaal (N 120)",
+            topic: "T0",
+            duration: "14:00 bis 16:00 c.t."
         }
     ];
 
@@ -405,15 +422,15 @@
             resultDiv.style.display = "block";
             errorDiv.style.display = "none";
             additionalInfo.style.display = "block";
-            appointmentBlock.style.display = "block";
 
             // Display the next two appointments
             displayNextAppointments();
+            appointmentBlock.style.display = "block"; // Show the appointment block
         } else {
             errorDiv.innerHTML = "Ungültiger Schlüssel!";
             resultDiv.style.display = "none";
             additionalInfo.style.display = "none";
-            appointmentBlock.style.display = "none";
+            appointmentBlock.style.display = "none"; // Hide appointment block on invalid key
             errorDiv.style.display = "block";
         }
     }
@@ -428,9 +445,9 @@
         const appointment2 = appointments[1];
 
         // Populate appointment information
-        document.getElementById('appointmentType').textContent = appointment1.type;
         document.getElementById('appointmentDay1').textContent = appointment1.day;
         document.getElementById('appointmentDate1').textContent = appointment1.date;
+        document.getElementById('appointmentType1').textContent = appointment1.type;
         document.getElementById('appointmentRoom1').textContent = appointment1.room;
         document.getElementById('appointmentLocation1').textContent = appointment1.location;
         document.getElementById('appointmentTopic1').textContent = appointment1.topic;
@@ -438,6 +455,7 @@
 
         document.getElementById('appointmentDay2').textContent = appointment2.day;
         document.getElementById('appointmentDate2').textContent = appointment2.date;
+        document.getElementById('appointmentType2').textContent = appointment2.type;
         document.getElementById('appointmentRoom2').textContent = appointment2.room;
         document.getElementById('appointmentLocation2').textContent = appointment2.location;
         document.getElementById('appointmentTopic2').textContent = appointment2.topic;
