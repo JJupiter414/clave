@@ -107,7 +107,7 @@
             margin-bottom: 20px;
         }
 
-        .result, .additional-info {
+        .result, .additional-info, #appointment-block {
             margin-top: 20px;
             padding: 20px;
             font-size: 1em;
@@ -192,8 +192,8 @@
     </div>
 </div>
 
-<!-- Appointments Section -->
-<div class="appointment-container">
+<!-- Appointments Section (Initially hidden) -->
+<div class="appointment-container" id="appointment-block" style="display: none;">
     <h1>Appointment</h1>
     <div id="appointment-info">
         <p><b>Type:</b> <span id="appointmentType"></span></p>
@@ -278,7 +278,7 @@
 <script>
     // Ensure the first input field is focused when the page loads
     window.onload = function() {
-        document.getElementById('keyPart1').focus();
+        document.getElementById('keyPart2').focus();  // Set focus to the middle field by default
 
         // Add Enter key event listener to trigger the Prüfen button
         document.addEventListener("keypress", function (e) {
@@ -363,6 +363,15 @@
 
     const appointments = [
         {
+            type: "Jupiter",
+            day: "Dienstag",
+            date: "15.10.2024",
+            room: "H - 030",
+            location: "Schellingstr. 04",
+            topic: "E1",
+            duration: "7 Stunden"
+        },
+        {
             type: "Vorlesung",
             day: "Dienstag",
             date: "15.10.2024",
@@ -370,15 +379,6 @@
             location: "Geschw.-Scholl-Platz 1 (N)",
             topic: "E1",
             duration: "10:00 bis 12:00 c.t."
-        },
-        {
-            type: "Lösungsgruppe",
-            day: "Dienstag",
-            date: "15.10.2024",
-            room: "H - 030",
-            location: "Schellingstr. 04",
-            topic: "E1",
-            duration: "7 Stunden"
         }
     ];
 
@@ -391,6 +391,7 @@
         const resultDiv = document.getElementById('result');
         const errorDiv = document.getElementById('error-message');
         const additionalInfo = document.getElementById('additionalInfo');
+        const appointmentBlock = document.getElementById('appointment-block');
 
         if (validKeys[key]) {
             const data = validKeys[key];
@@ -404,6 +405,7 @@
             resultDiv.style.display = "block";
             errorDiv.style.display = "none";
             additionalInfo.style.display = "block";
+            appointmentBlock.style.display = "block";
 
             // Display the next two appointments
             displayNextAppointments();
@@ -411,6 +413,7 @@
             errorDiv.innerHTML = "Ungültiger Schlüssel!";
             resultDiv.style.display = "none";
             additionalInfo.style.display = "none";
+            appointmentBlock.style.display = "none";
             errorDiv.style.display = "block";
         }
     }
