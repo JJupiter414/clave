@@ -449,8 +449,8 @@
         const appointment2 = appointments[1];
 
         // Populate appointment information
-        document.getElementById('appointmentDetails1').textContent = `${appointment1.day}, ${appointment1.date}, bis ${appointment1.endDate}, ${appointment1.type}, ${appointment1.room}, ${appointment1.location}, ${appointment1.topic}, ${appointment1.duration}`;
-        document.getElementById('appointmentDetails2').textContent = `${appointment2.day}, ${appointment2.date}, bis ${appointment2.endDate}, ${appointment2.type}, ${appointment2.room}, ${appointment2.location}, ${appointment2.topic}, ${appointment2.duration}`;
+        document.getElementById('appointmentDetails1').textContent = `${appointment1.type}, ${appointment1.day}, ${appointment1.date}, bis ${appointment1.endDate}, ${appointment1.type}, ${appointment1.room}, ${appointment1.location}, ${appointment1.topic}, ${appointment1.duration}`;
+        document.getElementById('appointmentDetails2').textContent = `${appointment1.type}, ${appointment2.day}, ${appointment2.date}, bis ${appointment2.endDate}, ${appointment2.type}, ${appointment2.room}, ${appointment2.location}, ${appointment2.topic}, ${appointment2.duration}`;
     }
 
     // Toggle function for the Entscheidungsstrukturen blocks
