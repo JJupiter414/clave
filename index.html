@@ -28,7 +28,7 @@
             animation: gradient 3s ease infinite;
             box-sizing: border-box;
             padding-top: 20px;
-            overflow-y: scroll; /* Enable scrolling */
+            overflow-y: scroll;
         }
 
         @keyframes gradient {
@@ -43,11 +43,11 @@
             }
         }
 
-        .container, .decision-container, .appointment-container {
-            width: 100%;
-            max-width: 800px;
+        .container, .decision-container {
+            width: 100%; 
             padding: 20px;
             border-radius: 16px;
+            max-width: 800px; 
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             box-sizing: border-box;
@@ -107,7 +107,7 @@
             margin-bottom: 20px;
         }
 
-        .result, .additional-info {
+        .result, .additional-info, #appointment-block {
             margin-top: 20px;
             padding: 20px;
             font-size: 1em;
@@ -174,7 +174,7 @@
     <h1>Schlüsselprüfung</h1>
     <p>Bitte gib deinen Schlüssel ein:</p>
     <div class="key-inputs">
-        <input type="text" id="keyPart1" maxlength="1" value="J" oninput="jumpToNext(this, 'keyPart2')" />
+        <input type="text" id="keyPart1" maxlength="1" placeholder="J" oninput="jumpToNext(this, 'keyPart2')" />
         <input type="text" id="keyPart2" maxlength="4" placeholder="nnnn" oninput="jumpToNext(this, 'keyPart3')" />
         <input type="text" id="keyPart3" maxlength="2" placeholder="mn" />
     </div>
@@ -192,13 +192,26 @@
     </div>
 </div>
 
-<!-- Appointments Section -->
-<div class="appointment-container">
-    <h1>Appointment</h1>
-    <div id="appointment-info">
-        <p><b>Type:</b> <span id="appointmentType"></span></p>
-        <p><b>Day 1:</b> <span id="appointmentDay1"></span>, <span id="appointmentDate1"></span>, <span id="appointmentRoom1"></span>, <span id="appointmentLocation1"></span>, <span id="appointmentTopic1"></span>, <span id="appointmentDuration1"></span></p>
-        <p><b>Day 2:</b> <span id="appointmentDay2"></span>, <span id="appointmentDate2"></span>, <span id="appointmentRoom2"></span>, <span id="appointmentLocation2"></span>, <span id="appointmentTopic2"></span>, <span id="appointmentDuration2"></span></p>
+<!-- Appointment Block (Initially hidden) -->
+<div id="appointment-block" class="container">
+    <h2>Nächste Termine</h2>
+    <div>
+        <h3 id="appointmentType"></h3>
+        <p>Tag: <span id="appointmentDay1"></span></p>
+        <p>Datum: <span id="appointmentDate1"></span></p>
+        <p>Raum: <span id="appointmentRoom1"></span></p>
+        <p>Ort: <span id="appointmentLocation1"></span></p>
+        <p>Thema: <span id="appointmentTopic1"></span></p>
+        <p>Dauer: <span id="appointmentDuration1"></span></p>
+    </div>
+    <div>
+        <h3 id="appointmentType"></h3>
+        <p>Tag: <span id="appointmentDay2"></span></p>
+        <p>Datum: <span id="appointmentDate2"></span></p>
+        <p>Raum: <span id="appointmentRoom2"></span></p>
+        <p>Ort: <span id="appointmentLocation2"></span></p>
+        <p>Thema: <span id="appointmentTopic2"></span></p>
+        <p>Dauer: <span id="appointmentDuration2"></span></p>
     </div>
 </div>
 
@@ -262,7 +275,7 @@
                 <li>Bereitstellung zusätzlicher Materialien oder Erklärungen, um die Vorlesungen zu vertiefen.</li>
             </ul>
             <div class="download-links">
-                <p>Herunterladbare Dateien: Automatischer Download, via click!</p>
+                <p>Herunterladbare Dateien:</p>
                 <a href="Vorlesungsfolien stand2023.1.zip">T0 Vorlesungsfolien teil 1</a>
                 <a href="Vorlesungsfolien stand2023.2.zip">T0 Vorlesungsfolien teil 2</a>
                 <a href="#">E1 Vorlesungsfolien</a>
@@ -279,13 +292,6 @@
     // Ensure the first input field is focused when the page loads
     window.onload = function() {
         document.getElementById('keyPart1').focus();
-
-        // Add Enter key event listener to trigger the Prüfen button
-        document.addEventListener("keypress", function (e) {
-            if (e.key === "Enter") {
-                checkKey();
-            }
-        });
     };
 
     // Function to jump to the next input field automatically
@@ -295,7 +301,7 @@
         }
     }
 
-    // Example data to simulate the key check and appointments
+    // Example data to simulate the key check
     const validKeys = {
         "J-1404-00": {
             orbit: "S - JUPITER",
@@ -361,27 +367,6 @@
         }
     };
 
-    const appointments = [
-        {
-            type: "Vorlesung",
-            day: "Dienstag",
-            date: "15.10.2024",
-            room: "N 120",
-            location: "Geschw.-Scholl-Platz 1 (N)",
-            topic: "E1",
-            duration: "10:00 bis 12:00 c.t."
-        },
-        {
-            type: "Lösungsgruppe",
-            day: "Dienstag",
-            date: "15.10.2024",
-            room: "H - 030",
-            location: "Schellingstr. 04",
-            topic: "E1",
-            duration: "7 Stunden"
-        }
-    ];
-
     function checkKey() {
         const keyPart1 = document.getElementById('keyPart1').value;
         const keyPart2 = document.getElementById('keyPart2').value;
@@ -391,6 +376,7 @@
         const resultDiv = document.getElementById('result');
         const errorDiv = document.getElementById('error-message');
         const additionalInfo = document.getElementById('additionalInfo');
+        const appointmentBlock = document.getElementById('appointment-block');
 
         if (validKeys[key]) {
             const data = validKeys[key];
@@ -404,46 +390,54 @@
             resultDiv.style.display = "block";
             errorDiv.style.display = "none";
             additionalInfo.style.display = "block";
-
-            // Display the next two appointments
-            displayNextAppointments();
+            appointmentBlock.style.display = "block"; // Show the appointment block
+            updateNextAppointments(); // Display next two appointments
         } else {
             errorDiv.innerHTML = "Ungültiger Schlüssel!";
             resultDiv.style.display = "none";
             additionalInfo.style.display = "none";
+            appointmentBlock.style.display = "none"; // Hide the appointment block if invalid
             errorDiv.style.display = "block";
         }
-    }
-
-    // Function to display the next two appointments
-    function displayNextAppointments() {
-        // Sort the appointments based on date and time
-        appointments.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-        // Get the next two appointments
-        const appointment1 = appointments[0];
-        const appointment2 = appointments[1];
-
-        // Populate appointment information
-        document.getElementById('appointmentType').textContent = appointment1.type;
-        document.getElementById('appointmentDay1').textContent = appointment1.day;
-        document.getElementById('appointmentDate1').textContent = appointment1.date;
-        document.getElementById('appointmentRoom1').textContent = appointment1.room;
-        document.getElementById('appointmentLocation1').textContent = appointment1.location;
-        document.getElementById('appointmentTopic1').textContent = appointment1.topic;
-        document.getElementById('appointmentDuration1').textContent = appointment1.duration;
-
-        document.getElementById('appointmentDay2').textContent = appointment2.day;
-        document.getElementById('appointmentDate2').textContent = appointment2.date;
-        document.getElementById('appointmentRoom2').textContent = appointment2.room;
-        document.getElementById('appointmentLocation2').textContent = appointment2.location;
-        document.getElementById('appointmentTopic2').textContent = appointment2.topic;
-        document.getElementById('appointmentDuration2').textContent = appointment2.duration;
     }
 
     // Toggle function for the Entscheidungsstrukturen blocks
     function toggleBlock(blockElement) {
         blockElement.classList.toggle('active');
+    }
+
+    // Function to display the next two appointments
+    function updateNextAppointments() {
+        const currentDateTime = new Date();
+        const appointments = [
+            { day: "Dienstag", date: "15.10.2024", type: "Jupiter", room: "H - 030", location: "Schellingstr. 04", topic: "E1", duration: "7 Stunden" },
+            { day: "Mittwoch", date: "16.10.2024", type: "Jupiter", room: "N - 020", location: "Geschwister-Scholl-Platz 01", topic: "T0", duration: "10 Stunden" },
+            { day: "Donnerstag", date: "17.10.2024", type: "Jupiter", room: "A - 000", location: "Theresienstr. 37/39/41", topic: "M1", duration: "4 Stunden" },
+            { day: "Freitag", date: "18.10.2024", type: "Jupiter", room: "C - 000", location: "Theresienstr. 37/39/41", topic: "M1", duration: "4 Stunden" },
+            { day: "Dienstag", date: "15.10.2024", type: "Vorlesung mit Prof. Udem", room: "N 120", location: "Geschw.-Scholl-Pl. 1 (N) - Großer Physiksaal", topic: "E1", duration: "10:00 bis 12:00 c.t." },
+            { day: "Freitag", date: "18.10.2024", type: "Vorlesung mit Prof. Udem", room: "N 120", location: "Geschw.-Scholl-Pl. 1 (N) - Großer Physiksaal", topic: "E1", duration: "10:00 bis 12:00 c.t." }
+        ];
+
+        // Filter upcoming appointments
+        const upcomingAppointments = appointments.filter(appointment => new Date(appointment.date) > currentDateTime);
+
+        if (upcomingAppointments.length > 0) {
+            document.getElementById("appointmentDay1").textContent = upcomingAppointments[0].day;
+            document.getElementById("appointmentDate1").textContent = upcomingAppointments[0].date;
+            document.getElementById("appointmentRoom1").textContent = upcomingAppointments[0].room;
+            document.getElementById("appointmentLocation1").textContent = upcomingAppointments[0].location;
+            document.getElementById("appointmentTopic1").textContent = upcomingAppointments[0].topic;
+            document.getElementById("appointmentDuration1").textContent = upcomingAppointments[0].duration;
+
+            if (upcomingAppointments.length > 1) {
+                document.getElementById("appointmentDay2").textContent = upcomingAppointments[1].day;
+                document.getElementById("appointmentDate2").textContent = upcomingAppointments[1].date;
+                document.getElementById("appointmentRoom2").textContent = upcomingAppointments[1].room;
+                document.getElementById("appointmentLocation2").textContent = upcomingAppointments[1].location;
+                document.getElementById("appointmentTopic2").textContent = upcomingAppointments[1].topic;
+                document.getElementById("appointmentDuration2").textContent = upcomingAppointments[1].duration;
+            }
+        }
     }
 </script>
 
