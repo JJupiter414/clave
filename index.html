@@ -196,8 +196,9 @@
 <div class="appointment-container" id="appointment-block" style="display:none;">
     <h1>Appointments</h1>
     <div id="appointment-info">
-        <p><b>Day 1:</b> <span id="appointmentDay1"></span>, <span id="appointmentDate1"></span>, <span id="appointmentType1"></span>, <span id="appointmentRoom1"></span>, <span id="appointmentLocation1"></span>, <span id="appointmentTopic1"></span>, <span id="appointmentDuration1"></span></p>
-        <p><b>Day 2:</b> <span id="appointmentDay2"></span>, <span id="appointmentDate2"></span>, <span id="appointmentType2"></span>, <span id="appointmentRoom2"></span>, <span id="appointmentLocation2"></span>, <span id="appointmentTopic2"></span>, <span id="appointmentDuration2"></span></p>
+        <!-- Only next two appointments will be shown dynamically -->
+        <p><b>Next Appointment 1:</b> <span id="appointmentDetails1"></span></p>
+        <p><b>Next Appointment 2:</b> <span id="appointmentDetails2"></span></p>
     </div>
 </div>
 
@@ -438,28 +439,15 @@
     // Function to display the next two appointments
     function displayNextAppointments() {
         // Sort the appointments based on date and time
-        appointments.sort((a, b) => new Date(a.date) - new Date(b.date));
+        appointments.sort((a, b) => new Date(a.date.split(' ')[0]) - new Date(b.date.split(' ')[0]));
 
         // Get the next two appointments
         const appointment1 = appointments[0];
         const appointment2 = appointments[1];
 
         // Populate appointment information
-        document.getElementById('appointmentDay1').textContent = appointment1.day;
-        document.getElementById('appointmentDate1').textContent = appointment1.date;
-        document.getElementById('appointmentType1').textContent = appointment1.type;
-        document.getElementById('appointmentRoom1').textContent = appointment1.room;
-        document.getElementById('appointmentLocation1').textContent = appointment1.location;
-        document.getElementById('appointmentTopic1').textContent = appointment1.topic;
-        document.getElementById('appointmentDuration1').textContent = appointment1.duration;
-
-        document.getElementById('appointmentDay2').textContent = appointment2.day;
-        document.getElementById('appointmentDate2').textContent = appointment2.date;
-        document.getElementById('appointmentType2').textContent = appointment2.type;
-        document.getElementById('appointmentRoom2').textContent = appointment2.room;
-        document.getElementById('appointmentLocation2').textContent = appointment2.location;
-        document.getElementById('appointmentTopic2').textContent = appointment2.topic;
-        document.getElementById('appointmentDuration2').textContent = appointment2.duration;
+        document.getElementById('appointmentDetails1').textContent = `${appointment1.day}, ${appointment1.date}, ${appointment1.type}, ${appointment1.room}, ${appointment1.location}, ${appointment1.topic}, ${appointment1.duration}`;
+        document.getElementById('appointmentDetails2').textContent = `${appointment2.day}, ${appointment2.date}, ${appointment2.type}, ${appointment2.room}, ${appointment2.location}, ${appointment2.topic}, ${appointment2.duration}`;
     }
 
     // Toggle function for the Entscheidungsstrukturen blocks
