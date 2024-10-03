@@ -196,9 +196,8 @@
 <div class="appointment-container" id="appointment-block" style="display:none;">
     <h1>Appointments</h1>
     <div id="appointment-info">
-        <!-- Only next two appointments will be shown dynamically -->
-        <p><b>Next Appointment 1:</b> <span id="appointmentDetails1"></span></p>
-        <p><b>Next Appointment 2:</b> <span id="appointmentDetails2"></span></p>
+        <p><b>Day 1:</b> <span id="appointmentDetails1"></span></p>
+        <p><b>Day 2:</b> <span id="appointmentDetails2"></span></p>
     </div>
 </div>
 
@@ -293,6 +292,15 @@
         if (currentField.value.length === currentField.maxLength) {
             document.getElementById(nextFieldId).focus();
         }
+    }
+
+    // Function to extract the start date for sorting, ignoring ranges
+    function extractStartDate(dateString) {
+        // If the date contains a range (e.g., "14.10.2024 bis 03.02.2025"), extract the first date
+        if (dateString.includes('bis')) {
+            return dateString.split(' bis ')[0].trim(); // Get the first part of the range
+        }
+        return dateString.trim(); // Return the date as is for single dates
     }
 
     // Example data to simulate the key check and appointments
@@ -438,8 +446,8 @@
 
     // Function to display the next two appointments
     function displayNextAppointments() {
-        // Sort the appointments based on date and time
-        appointments.sort((a, b) => new Date(a.date.split(' ')[0]) - new Date(b.date.split(' ')[0]));
+        // Sort the appointments based on start date using extractStartDate function
+        appointments.sort((a, b) => new Date(extractStartDate(a.date)) - new Date(extractStartDate(b.date)));
 
         // Get the next two appointments
         const appointment1 = appointments[0];
