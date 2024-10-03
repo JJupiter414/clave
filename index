@@ -15,6 +15,7 @@
             height: 100%;
             box-sizing: border-box;
             overflow-x: hidden;
+            overflow-y: auto; /* Ensures scrolling */
         }
 
         /* Overall page styling */
@@ -28,7 +29,7 @@
             animation: gradient 3s ease infinite;
             box-sizing: border-box;
             padding-top: 20px;
-            overflow-y: scroll; /* Enable scrolling */
+            height: auto; /* Adjust for scrolling */
         }
 
         @keyframes gradient {
@@ -165,6 +166,21 @@
         .download-links a:hover {
             text-decoration: underline;
         }
+
+        /* Meeting Info Styling */
+        .meeting-info {
+            padding: 20px;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .meeting-info h2 {
+            font-size: 1.5em;
+        }
+
     </style>
 </head>
 <body>
@@ -193,22 +209,27 @@
 </div>
 
 <!-- Meeting Info Section -->
-<div id="appointment-info" class="result" style="display: none;">
+<div id="appointment-info" class="meeting-info">
     <h2>Nächste Termine</h2>
-    <p><b>Type:</b> <span id="appointmentType"></span></p>
-    <p><b>Day:</b> <span id="appointmentDay1"></span></p>
-    <p><b>Date:</b> <span id="appointmentDate1"></span></p>
-    <p><b>Room:</b> <span id="appointmentRoom1"></span></p>
-    <p><b>Location:</b> <span id="appointmentLocation1"></span></p>
-    <p><b>Topic:</b> <span id="appointmentTopic1"></span></p>
-    <p><b>Duration:</b> <span id="appointmentDuration1"></span></p>
+    <div id="appointment1">
+        <p><b>Type:</b> <span id="appointmentType1"></span></p>
+        <p><b>Day:</b> <span id="appointmentDay1"></span></p>
+        <p><b>Date:</b> <span id="appointmentDate1"></span></p>
+        <p><b>Room:</b> <span id="appointmentRoom1"></span></p>
+        <p><b>Location:</b> <span id="appointmentLocation1"></span></p>
+        <p><b>Topic:</b> <span id="appointmentTopic1"></span></p>
+        <p><b>Duration:</b> <span id="appointmentDuration1"></span></p>
+    </div>
     <hr>
-    <p><b>Day:</b> <span id="appointmentDay2"></span></p>
-    <p><b>Date:</b> <span id="appointmentDate2"></span></p>
-    <p><b>Room:</b> <span id="appointmentRoom2"></span></p>
-    <p><b>Location:</b> <span id="appointmentLocation2"></span></p>
-    <p><b>Topic:</b> <span id="appointmentTopic2"></span></p>
-    <p><b>Duration:</b> <span id="appointmentDuration2"></span></p>
+    <div id="appointment2">
+        <p><b>Type:</b> <span id="appointmentType2"></span></p>
+        <p><b>Day:</b> <span id="appointmentDay2"></span></p>
+        <p><b>Date:</b> <span id="appointmentDate2"></span></p>
+        <p><b>Room:</b> <span id="appointmentRoom2"></span></p>
+        <p><b>Location:</b> <span id="appointmentLocation2"></span></p>
+        <p><b>Topic:</b> <span id="appointmentTopic2"></span></p>
+        <p><b>Duration:</b> <span id="appointmentDuration2"></span></p>
+    </div>
 </div>
 
 <!-- Entscheidungsstrukturen Section -->
