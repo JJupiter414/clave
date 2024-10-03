@@ -84,7 +84,6 @@
             background-color: #3578e5;
         }
 
-        /* Key inputs container for a grid-like layout */
         .key-inputs {
             display: flex;
             justify-content: space-between;
@@ -117,14 +116,12 @@
             background: rgba(255, 255, 255, 0.8);
         }
 
-        /* Styling for error messages */
         .error {
             color: #d9534f;
             background-color: #f2dede;
             border-color: #ebcccc;
         }
 
-        /* Styling for the Entscheidungsstrukturen */
         .block {
             margin: 20px 0;
             padding: 20px;
@@ -188,7 +185,7 @@
     <!-- Additional Info (Initially hidden) -->
     <div id="additionalInfo" class="additional-info">
         <h2>Entscheidungsstrukturen</h2>
-        <p><b>Hauptadministrator:</b> Trifft die finale Entscheidung über den Verbleib und die Mitgliedschaft. Moderiert die Aufgaben der Admins, Verwalter und der Vorlesungsunterstützer.</p>
+        <p><b>Hauptadministrator:</b> Trifft die finale Entscheidung über den Verbleib und die Mitgliedschaft. Moderiert die Aufgaben der Admins und Verwalter.</p>
     </div>
 </div>
 
@@ -275,7 +272,6 @@
 </div>
 
 <script>
-    // Ensure the first input field is focused when the page loads
     window.onload = function() {
         document.getElementById('keyPart2').focus(); // Start focus on the middle input
 
@@ -287,23 +283,12 @@
         });
     };
 
-    // Function to jump to the next input field automatically
     function jumpToNext(currentField, nextFieldId) {
         if (currentField.value.length === currentField.maxLength) {
             document.getElementById(nextFieldId).focus();
         }
     }
 
-    // Function to extract the start date for sorting, ignoring ranges
-    function extractStartDate(dateString) {
-        // If the date contains a range (e.g., "14.10.2024 bis 03.02.2025"), extract the first date
-        if (dateString.includes('bis')) {
-            return dateString.split(' bis ')[0].trim(); // Get the first part of the range
-        }
-        return dateString.trim(); // Return the date as is for single dates
-    }
-
-    // Example data to simulate the key check and appointments
     const validKeys = {
         "J-1404-00": {
             orbit: "S - JUPITER",
@@ -374,6 +359,7 @@
             type: "Jupiter",
             day: "Dienstag",
             date: "15.10.2024",
+            end: "28.02.2025",
             room: "H - 030",
             location: "Schellingstr. 04",
             topic: "E1",
@@ -383,6 +369,7 @@
             type: "Jupiter",
             day: "Mittwoch",
             date: "16.10.2024",
+            end: "28.02.2025",
             room: "N - 020",
             location: "Geschwister-Scholl-Platz 01",
             topic: "T0",
@@ -391,7 +378,8 @@
         {
             type: "Vorlesung mit Prof. Udem",
             day: "Dienstag",
-            date: "15.10.2024 bis 04.02.2025",
+            date: "15.10.2024",
+            end: "04.02.2025",
             room: "N 120",
             location: "Geschw.-Scholl-Pl. 1 (N) - Großer Physiksaal (N 120)",
             topic: "E1",
@@ -400,7 +388,8 @@
         {
             type: "Vorlesung mit Prof. Delft",
             day: "Montag",
-            date: "14.10.2024 bis 03.02.2025",
+            date: "14.10.2024",
+            end: "03.02.2025",
             room: "N 120",
             location: "Geschw.-Scholl-Pl. 1 (N) - Großer Physiksaal (N 120)",
             topic: "T0",
@@ -444,21 +433,21 @@
         }
     }
 
-    // Function to display the next two appointments
+    function extractStartDate(dateString) {
+        return dateString.split(' ')[0]; // Return only the start date for comparison
+    }
+
     function displayNextAppointments() {
         // Sort the appointments based on start date using extractStartDate function
         appointments.sort((a, b) => new Date(extractStartDate(a.date)) - new Date(extractStartDate(b.date)));
 
-        // Get the next two appointments
         const appointment1 = appointments[0];
         const appointment2 = appointments[1];
 
-        // Populate appointment information
-        document.getElementById('appointmentDetails1').textContent = `${appointment1.day}, ${appointment1.date}, ${appointment1.type}, ${appointment1.room}, ${appointment1.location}, ${appointment1.topic}, ${appointment1.duration}`;
-        document.getElementById('appointmentDetails2').textContent = `${appointment2.day}, ${appointment2.date}, ${appointment2.type}, ${appointment2.room}, ${appointment2.location}, ${appointment2.topic}, ${appointment2.duration}`;
+        document.getElementById('appointmentDetails1').textContent = `${appointment1.day}, ${appointment1.date} bis ${appointment1.end}, ${appointment1.type}, ${appointment1.room}, ${appointment1.location}, ${appointment1.topic}, ${appointment1.duration}`;
+        document.getElementById('appointmentDetails2').textContent = `${appointment2.day}, ${appointment2.date} bis ${appointment2.end}, ${appointment2.type}, ${appointment2.room}, ${appointment2.location}, ${appointment2.topic}, ${appointment2.duration}`;
     }
 
-    // Toggle function for the Entscheidungsstrukturen blocks
     function toggleBlock(blockElement) {
         blockElement.classList.toggle('active');
     }
