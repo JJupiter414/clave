@@ -15,13 +15,20 @@
             height: 100%;
             box-sizing: border-box;
             overflow-x: hidden;
+        }
+
+        /* Overall page styling */
+        body {
+            font-family: 'Playfair Display', serif;
             display: flex;
-            justify-content: center;
-            align-items: center;
             flex-direction: column;
+            align-items: center;
             background: linear-gradient(135deg, #bb6d2d, #f7f3db, #d69d58, #a27549, #e1c183, #e7d5a4, #bbbca1, #bab39c, #8c845c, #fcb43c);
             background-size: 400% 400%;
-            animation: gradient 5s ease infinite;
+            animation: gradient 3s ease infinite;
+            box-sizing: border-box;
+            padding-top: 20px;
+            overflow-y: scroll; /* Enable scrolling */
         }
 
         @keyframes gradient {
@@ -36,15 +43,15 @@
             }
         }
 
-        .container, .decision-container, .appointment-block {
-            background-color: rgba(255, 255, 255, 0.8);
+        .container, .decision-container, .appointment-container {
+            width: 100%;
+            max-width: 800px;
             padding: 20px;
             border-radius: 16px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 800px;
             margin-bottom: 20px;
             box-sizing: border-box;
+            background: rgba(255, 255, 255, 0.8);
         }
 
         input, button {
@@ -77,6 +84,7 @@
             background-color: #3578e5;
         }
 
+        /* Key inputs container for a grid-like layout */
         .key-inputs {
             display: flex;
             justify-content: space-between;
@@ -88,7 +96,7 @@
             width: 32%;
         }
 
-        h1, h2 {
+        h1 {
             font-size: 1.8em;
             color: #333;
             margin-bottom: 20px;
@@ -99,16 +107,24 @@
             margin-bottom: 20px;
         }
 
-        .result, .additional-info, .appointment-block {
+        .result, .additional-info {
+            margin-top: 20px;
+            padding: 20px;
+            font-size: 1em;
+            border: 2px solid #e0e6ed;
+            border-radius: 12px;
             display: none;
+            background: rgba(255, 255, 255, 0.8);
         }
 
+        /* Styling for error messages */
         .error {
             color: #d9534f;
             background-color: #f2dede;
             border-color: #ebcccc;
         }
 
+        /* Styling for the Entscheidungsstrukturen */
         .block {
             margin: 20px 0;
             padding: 20px;
@@ -116,6 +132,7 @@
             border-radius: 12px;
             cursor: pointer;
             transition: background-color 0.3s ease, height 0.3s ease;
+            position: relative;
             background: rgba(255, 255, 255, 0.8);
         }
 
@@ -148,12 +165,6 @@
         .download-links a:hover {
             text-decoration: underline;
         }
-
-        .appointment-info {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
     </style>
 </head>
 <body>
@@ -163,36 +174,31 @@
     <h1>Schlüsselprüfung</h1>
     <p>Bitte gib deinen Schlüssel ein:</p>
     <div class="key-inputs">
-        <input type="text" id="keyPart1" value="J" maxlength="1" placeholder="J" oninput="jumpToNext(this, 'keyPart2')" />
+        <input type="text" id="keyPart1" maxlength="1" value="J" oninput="jumpToNext(this, 'keyPart2')" />
         <input type="text" id="keyPart2" maxlength="4" placeholder="nnnn" oninput="jumpToNext(this, 'keyPart3')" />
-        <input type="text" id="keyPart3" maxlength="2" placeholder="mn" onkeydown="handleEnter(event)" />
+        <input type="text" id="keyPart3" maxlength="2" placeholder="mn" />
     </div>
     <button onclick="checkKey()">Prüfen</button>
-
+    
     <div id="result" class="result"></div>
+
+    <!-- Error Message (optional) -->
     <div id="error-message" class="result error"></div>
+
+    <!-- Additional Info (Initially hidden) -->
+    <div id="additionalInfo" class="additional-info">
+        <h2>Entscheidungsstrukturen</h2>
+        <p><b>Hauptadministrator:</b> Trifft die finale Entscheidung über den Verbleib und die Mitgliedschaft. Moderiert die Aufgaben der Admins und Verwalter.</p>
+    </div>
 </div>
 
-<!-- Appointment Block (Initially hidden) -->
-<div id="appointment-block" class="appointment-block">
-    <h1>Upcoming Appointments</h1>
-    <div class="appointment-info">
-        <div>
-            <p><b>Day:</b> <span id="appointmentDay1"></span></p>
-            <p><b>Date:</b> <span id="appointmentDate1"></span></p>
-            <p><b>Room:</b> <span id="appointmentRoom1"></span></p>
-            <p><b>Location:</b> <span id="appointmentLocation1"></span></p>
-            <p><b>Topic:</b> <span id="appointmentTopic1"></span></p>
-            <p><b>Estimated duration:</b> <span id="appointmentDuration1"></span></p>
-        </div>
-        <div>
-            <p><b>Day:</b> <span id="appointmentDay2"></span></p>
-            <p><b>Date:</b> <span id="appointmentDate2"></span></p>
-            <p><b>Room:</b> <span id="appointmentRoom2"></span></p>
-            <p><b>Location:</b> <span id="appointmentLocation2"></span></p>
-            <p><b>Topic:</b> <span id="appointmentTopic2"></span></p>
-            <p><b>Estimated duration:</b> <span id="appointmentDuration2"></span></p>
-        </div>
+<!-- Appointments Section -->
+<div class="appointment-container">
+    <h1>Appointment</h1>
+    <div id="appointment-info">
+        <p><b>Type:</b> <span id="appointmentType"></span></p>
+        <p><b>Day 1:</b> <span id="appointmentDay1"></span>, <span id="appointmentDate1"></span>, <span id="appointmentRoom1"></span>, <span id="appointmentLocation1"></span>, <span id="appointmentTopic1"></span>, <span id="appointmentDuration1"></span></p>
+        <p><b>Day 2:</b> <span id="appointmentDay2"></span>, <span id="appointmentDate2"></span>, <span id="appointmentRoom2"></span>, <span id="appointmentLocation2"></span>, <span id="appointmentTopic2"></span>, <span id="appointmentDuration2"></span></p>
     </div>
 </div>
 
@@ -273,6 +279,13 @@
     // Ensure the first input field is focused when the page loads
     window.onload = function() {
         document.getElementById('keyPart1').focus();
+
+        // Add Enter key event listener to trigger the Prüfen button
+        document.addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+                checkKey();
+            }
+        });
     };
 
     // Function to jump to the next input field automatically
@@ -282,7 +295,7 @@
         }
     }
 
-    // Example data to simulate the key check
+    // Example data to simulate the key check and appointments
     const validKeys = {
         "J-1404-00": {
             orbit: "S - JUPITER",
@@ -348,6 +361,27 @@
         }
     };
 
+    const appointments = [
+        {
+            type: "Vorlesung",
+            day: "Dienstag",
+            date: "15.10.2024",
+            room: "N 120",
+            location: "Geschw.-Scholl-Platz 1 (N)",
+            topic: "E1",
+            duration: "10:00 bis 12:00 c.t."
+        },
+        {
+            type: "Lösungsgruppe",
+            day: "Dienstag",
+            date: "15.10.2024",
+            room: "H - 030",
+            location: "Schellingstr. 04",
+            topic: "E1",
+            duration: "7 Stunden"
+        }
+    ];
+
     function checkKey() {
         const keyPart1 = document.getElementById('keyPart1').value;
         const keyPart2 = document.getElementById('keyPart2').value;
@@ -356,7 +390,6 @@
         
         const resultDiv = document.getElementById('result');
         const errorDiv = document.getElementById('error-message');
-        const appointmentBlock = document.getElementById('appointment-block');
         const additionalInfo = document.getElementById('additionalInfo');
 
         if (validKeys[key]) {
@@ -370,27 +403,47 @@
             `;
             resultDiv.style.display = "block";
             errorDiv.style.display = "none";
-            appointmentBlock.style.display = "block";
             additionalInfo.style.display = "block";
+
+            // Display the next two appointments
+            displayNextAppointments();
         } else {
             errorDiv.innerHTML = "Ungültiger Schlüssel!";
             resultDiv.style.display = "none";
-            appointmentBlock.style.display = "none";
             additionalInfo.style.display = "none";
             errorDiv.style.display = "block";
         }
     }
 
+    // Function to display the next two appointments
+    function displayNextAppointments() {
+        // Sort the appointments based on date and time
+        appointments.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+        // Get the next two appointments
+        const appointment1 = appointments[0];
+        const appointment2 = appointments[1];
+
+        // Populate appointment information
+        document.getElementById('appointmentType').textContent = appointment1.type;
+        document.getElementById('appointmentDay1').textContent = appointment1.day;
+        document.getElementById('appointmentDate1').textContent = appointment1.date;
+        document.getElementById('appointmentRoom1').textContent = appointment1.room;
+        document.getElementById('appointmentLocation1').textContent = appointment1.location;
+        document.getElementById('appointmentTopic1').textContent = appointment1.topic;
+        document.getElementById('appointmentDuration1').textContent = appointment1.duration;
+
+        document.getElementById('appointmentDay2').textContent = appointment2.day;
+        document.getElementById('appointmentDate2').textContent = appointment2.date;
+        document.getElementById('appointmentRoom2').textContent = appointment2.room;
+        document.getElementById('appointmentLocation2').textContent = appointment2.location;
+        document.getElementById('appointmentTopic2').textContent = appointment2.topic;
+        document.getElementById('appointmentDuration2').textContent = appointment2.duration;
+    }
+
     // Toggle function for the Entscheidungsstrukturen blocks
     function toggleBlock(blockElement) {
         blockElement.classList.toggle('active');
-    }
-
-    // Handle "Enter" key to trigger Prüfen button
-    function handleEnter(event) {
-        if (event.key === 'Enter') {
-            checkKey();
-        }
     }
 </script>
 
