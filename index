@@ -15,7 +15,7 @@
             height: 100%;
             box-sizing: border-box;
             overflow-x: hidden;
-            overflow-y: auto; /* Ensures scrolling */
+            overflow-y: scroll; /* Always enable vertical scrolling */
         }
 
         /* Overall page styling */
@@ -29,7 +29,6 @@
             animation: gradient 3s ease infinite;
             box-sizing: border-box;
             padding-top: 20px;
-            height: auto; /* Adjust for scrolling */
         }
 
         @keyframes gradient {
@@ -166,21 +165,6 @@
         .download-links a:hover {
             text-decoration: underline;
         }
-
-        /* Meeting Info Styling */
-        .meeting-info {
-            padding: 20px;
-            margin-top: 20px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-            display: none;
-        }
-
-        .meeting-info h2 {
-            font-size: 1.5em;
-        }
-
     </style>
 </head>
 <body>
@@ -209,27 +193,22 @@
 </div>
 
 <!-- Meeting Info Section -->
-<div id="appointment-info" class="meeting-info">
+<div id="appointment-info" class="result" style="display: none;">
     <h2>Nächste Termine</h2>
-    <div id="appointment1">
-        <p><b>Type:</b> <span id="appointmentType1"></span></p>
-        <p><b>Day:</b> <span id="appointmentDay1"></span></p>
-        <p><b>Date:</b> <span id="appointmentDate1"></span></p>
-        <p><b>Room:</b> <span id="appointmentRoom1"></span></p>
-        <p><b>Location:</b> <span id="appointmentLocation1"></span></p>
-        <p><b>Topic:</b> <span id="appointmentTopic1"></span></p>
-        <p><b>Duration:</b> <span id="appointmentDuration1"></span></p>
-    </div>
+    <p><b>Type:</b> <span id="appointmentType"></span></p>
+    <p><b>Day:</b> <span id="appointmentDay1"></span></p>
+    <p><b>Date:</b> <span id="appointmentDate1"></span></p>
+    <p><b>Room:</b> <span id="appointmentRoom1"></span></p>
+    <p><b>Location:</b> <span id="appointmentLocation1"></span></p>
+    <p><b>Topic:</b> <span id="appointmentTopic1"></span></p>
+    <p><b>Duration:</b> <span id="appointmentDuration1"></span></p>
     <hr>
-    <div id="appointment2">
-        <p><b>Type:</b> <span id="appointmentType2"></span></p>
-        <p><b>Day:</b> <span id="appointmentDay2"></span></p>
-        <p><b>Date:</b> <span id="appointmentDate2"></span></p>
-        <p><b>Room:</b> <span id="appointmentRoom2"></span></p>
-        <p><b>Location:</b> <span id="appointmentLocation2"></span></p>
-        <p><b>Topic:</b> <span id="appointmentTopic2"></span></p>
-        <p><b>Duration:</b> <span id="appointmentDuration2"></span></p>
-    </div>
+    <p><b>Day:</b> <span id="appointmentDay2"></span></p>
+    <p><b>Date:</b> <span id="appointmentDate2"></span></p>
+    <p><b>Room:</b> <span id="appointmentRoom2"></span></p>
+    <p><b>Location:</b> <span id="appointmentLocation2"></span></p>
+    <p><b>Topic:</b> <span id="appointmentTopic2"></span></p>
+    <p><b>Duration:</b> <span id="appointmentDuration2"></span></p>
 </div>
 
 <!-- Entscheidungsstrukturen Section -->
@@ -292,7 +271,7 @@
                 <li>Bereitstellung zusätzlicher Materialien oder Erklärungen, um die Vorlesungen zu vertiefen.</li>
             </ul>
             <div class="download-links">
-                <p>Herunterladbare Dateien: Automatischer Download, via click!</p>
+                <p>Herunterladbare Dateien:</p>
                 <a href="Vorlesungsfolien stand2023.1.zip">T0 Vorlesungsfolien teil 1</a>
                 <a href="Vorlesungsfolien stand2023.2.zip">T0 Vorlesungsfolien teil 2</a>
                 <a href="#">E1 Vorlesungsfolien</a>
@@ -322,7 +301,7 @@
     const validKeys = {
         "J-1404-00": {
             orbit: "S - JUPITER",
-            klave: "1401",
+            klave: "1404",
             role: "HADM – Hauptadministrator",
             status: "Ω -AKTIV",
             message: "Thank you for entering; Hallo Hauptadministrator!"
@@ -397,7 +376,7 @@
         if (validKeys[key]) {
             const data = validKeys[key];
             resultDiv.innerHTML = `
-                <p>Orbit: ${data.orbit} - ${data.moon}</p>
+                <p>Orbit: ${data.orbit}</p>
                 <p>Klave: ${data.klave}</p>
                 <p>You are registered as ${data.status}</p>
                 <p>You have been assigned the role of ${data.role}</p>
