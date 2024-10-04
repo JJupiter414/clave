@@ -218,8 +218,8 @@
             <div class="download-links">
                 <p>Herunterladbare Dateien:</p>
                 <a href="https://pdfupload.io/docs/c76b2384" target="_blank">T0 Übungsblatt der Woche</a>
-                <a href="#">E1 Übungsblatt der Woche</a>
-                <a href="#">M1 Übungsblatt der Woche</a>
+                <a href="#">LEER.YET E1 Übungsblatt der Woche</a>
+                <a href="#">LEER.YET M1 Übungsblatt der Woche</a>
             </div>
         </div>
     </div>
@@ -264,11 +264,11 @@
                 <p>Herunterladbare Dateien: Automatischer Download, via click!</p>
                 <a href="Vorlesungsfolien stand2023.1.zip">T0 Vorlesungsfolien teil 1</a>
                 <a href="Vorlesungsfolien stand2023.2.zip">T0 Vorlesungsfolien teil 2</a>
-                <a href="#">E1 Vorlesungsfolien</a>
-                <a href="#">M1 Vorlesungsfolien</a>
-                <a href="#">T0 Vorlesungs Anhänge (Orbit)</a>
-                <a href="#">E1 Vorlesungs Anhänge (Orbit)</a>
-                <a href="#">M1 Vorlesungs Anhänge (Orbit)</a>
+                <a href="#">LEER.YET E1 Vorlesungsfolien</a>
+                <a href="#">LEER.YET M1 Vorlesungsfolien</a>
+                <a href="#">LEER.YET T0 Vorlesungs Anhänge (Orbit)</a>
+                <a href="#">LEER.YET E1 Vorlesungs Anhänge (Orbit)</a>
+                <a href="#">LEER.YET M1 Vorlesungs Anhänge (Orbit)</a>
             </div>
         </div>
     </div>
@@ -400,6 +400,16 @@
             location: "Geschw.-Scholl-Pl. 1 (N) - Großer Physiksaal (N 120)",
             topic: "T0",
             duration: "14:00 bis 16:00 c.t."
+        },
+        {
+            type: "Vorlesung mit PD. Dr. Zenk",
+            day: "Montag",
+            date: "14.10.2024",
+            endDate: "03.02.2025",
+            room: "C 123",
+            location: "Theresienstr. 41 - C 123",
+            topic: "M1",
+            duration: "12:00 bis 14:00 c.t."
         }
     ];
 
@@ -441,16 +451,24 @@
 
     // Function to display the next two appointments
     function displayNextAppointments() {
-        // Sort the appointments based on date and time
-        appointments.sort((a, b) => new Date(a.date) - new Date(b.date));
+        // Filter future appointments based on the current date
+        const today = new Date();
+
+        const upcomingAppointments = appointments.filter(appointment => {
+            const appointmentDate = new Date(appointment.date);
+            return appointmentDate >= today;
+        });
+
+        // Sort by date
+        upcomingAppointments.sort((a, b) => new Date(a.date) - new Date(b.date));
 
         // Get the next two appointments
-        const appointment1 = appointments[0];
-        const appointment2 = appointments[1];
+        const appointment1 = upcomingAppointments[0];
+        const appointment2 = upcomingAppointments[1];
 
         // Populate appointment information
-        document.getElementById('appointmentDetails1').textContent = `${appointment1.type}, ${appointment1.day}, ${appointment1.date}, bis ${appointment1.endDate}, ${appointment1.type}, ${appointment1.room}, ${appointment1.location}, ${appointment1.topic}, ${appointment1.duration}`;
-        document.getElementById('appointmentDetails2').textContent = `${appointment1.type}, ${appointment2.day}, ${appointment2.date}, bis ${appointment2.endDate}, ${appointment2.type}, ${appointment2.room}, ${appointment2.location}, ${appointment2.topic}, ${appointment2.duration}`;
+        document.getElementById('appointmentDetails1').textContent = `${appointment1.day}, ${appointment1.date} (${appointment1.type}) - ${appointment1.room}, ${appointment1.location}, Topic: ${appointment1.topic}, Duration: ${appointment1.duration}`;
+        document.getElementById('appointmentDetails2').textContent = `${appointment2.day}, ${appointment2.date} (${appointment2.type}) - ${appointment2.room}, ${appointment2.location}, Topic: ${appointment2.topic}, Duration: ${appointment2.duration}`;
     }
 
     // Toggle function for the Entscheidungsstrukturen blocks
