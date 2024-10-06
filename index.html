@@ -526,35 +526,45 @@
         }
     }
 
-    // Function to display the next two appointments
-    function displayNextAppointments() {
-        const today = new Date();
-        const filteredAppointments = appointments.filter(appointment => new Date(appointment.date) >= today);
+    // Function to display today's and tomorrow's appointments
+function displayNextAppointments() {
+    const today = new Date(); // Get current date
+    const tomorrow = new Date(today); // Create a new date object for tomorrow
+    tomorrow.setDate(today.getDate() + 1); // Set tomorrow's date
 
-        // Sort the appointments based on date and time
-        filteredAppointments.sort((a, b) => new Date(a.date) - new Date(b.date));
+    const filteredAppointments = appointments.filter(appointment => {
+        const appointmentDate = new Date(appointment.date);
+        // Check if the appointment is either today or tomorrow
+        return (
+            appointmentDate.toDateString() === today.toDateString() || 
+            appointmentDate.toDateString() === tomorrow.toDateString()
+        );
+    });
 
-        // Get the next two appointments
-        const appointment1 = filteredAppointments[0];
-        const appointment2 = filteredAppointments[1];
+    // Sort the appointments based on date and time
+    filteredAppointments.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-        // Populate appointment information
-        document.getElementById('appointmentDay1').textContent = appointment1.day;
-        document.getElementById('appointmentDate1').textContent = appointment1.date;
-        document.getElementById('appointmentType1').textContent = appointment1.type;
-        document.getElementById('appointmentRoom1').textContent = appointment1.room;
-        document.getElementById('appointmentLocation1').textContent = appointment1.location;
-        document.getElementById('appointmentTopic1').textContent = appointment1.topic;
-        document.getElementById('appointmentDuration1').textContent = appointment1.duration;
+    // Get the first two appointments (today and tomorrow)
+    const appointment1 = filteredAppointments[0];
+    const appointment2 = filteredAppointments[1];
 
-        document.getElementById('appointmentDay2').textContent = appointment2.day;
-        document.getElementById('appointmentDate2').textContent = appointment2.date;
-        document.getElementById('appointmentType2').textContent = appointment2.type;
-        document.getElementById('appointmentRoom2').textContent = appointment2.room;
-        document.getElementById('appointmentLocation2').textContent = appointment2.location;
-        document.getElementById('appointmentTopic2').textContent = appointment2.topic;
-        document.getElementById('appointmentDuration2').textContent = appointment2.duration;
-    }
+    // Populate appointment information
+    document.getElementById('appointmentDay1').textContent = appointment1.day;
+    document.getElementById('appointmentDate1').textContent = appointment1.date;
+    document.getElementById('appointmentType1').textContent = appointment1.type;
+    document.getElementById('appointmentRoom1').textContent = appointment1.room;
+    document.getElementById('appointmentLocation1').textContent = appointment1.location;
+    document.getElementById('appointmentTopic1').textContent = appointment1.topic;
+    document.getElementById('appointmentDuration1').textContent = appointment1.duration;
+
+    document.getElementById('appointmentDay2').textContent = appointment2.day;
+    document.getElementById('appointmentDate2').textContent = appointment2.date;
+    document.getElementById('appointmentType2').textContent = appointment2.type;
+    document.getElementById('appointmentRoom2').textContent = appointment2.room;
+    document.getElementById('appointmentLocation2').textContent = appointment2.location;
+    document.getElementById('appointmentTopic2').textContent = appointment2.topic;
+    document.getElementById('appointmentDuration2').textContent = appointment2.duration;
+}
 
     // Toggle function for the Entscheidungsstrukturen blocks
     function toggleBlock(blockElement) {
