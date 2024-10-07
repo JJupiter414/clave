@@ -194,10 +194,9 @@
 
 <!-- Appointments Section -->
 <div class="appointment-container" id="appointment-block" style="display:none;">
-    <h1>short (nexts) timetable</h1>
+    <h1>Next Appointments</h1>
     <div id="appointment-info">
-        <p><b>Very next appointment 1:</b> <span id="appointmentDay1"></span>, <span id="appointmentDate1"></span>, <span id="appointmentType1"></span>, <span id="appointmentRoom1"></span>, <span id="appointmentLocation1"></span>, <span id="appointmentTopic1"></span>, <span id="appointmentDuration1"></span></p>
-        <p><b>Next appointment 2:</b> <span id="appointmentDay2"></span>, <span id="appointmentDate2"></span>, <span id="appointmentType2"></span>, <span id="appointmentRoom2"></span>, <span id="appointmentLocation2"></span>, <span id="appointmentTopic2"></span>, <span id="appointmentDuration2"></span></p>
+        <div id="nextAppointments"></div>
     </div>
 </div>
 
@@ -332,38 +331,14 @@
             moon: "J04 - Kallisto",
             role: "ADM – Admins",
             status: "Ω -AKTIV",
-            message: "Willkommen in Jupiters Orbit, Don't forget to get the books! Hey Kallisto, ich habe mir die Freiheit genommen, dich als ADMIN einzutragen. Die Aufgaben eines ADMIN bestehen lediglich darin, bei Ausschlüssen und zukünftig auch bei Neueintritten mitzuentscheiden. Bis etwa Mitte Oktober hast du keine weiteren Aufgaben. Ich werde, wie gewohnt, offen mit dir kommunizieren, falls es etwas zu besprechen gibt. Ich hoffe, ich überschätze weder dich noch deine Menschlichkeit."
+            message: "Willkommen in Jupiters Orbit, Don't forget to get the books!"
         },
         "J-6598-08": {	
             orbit: "J",	klave: "6598",
             moon: "J08 - Pasiphae",
             role: "Beta tester, beater",
             status: "Ω -AKTIV",
-            message: "Willkommen in Jupiters Orbit, Don't forget to get the books"	
-        },
-        "J-9059-06": {
-            orbit: "J",
-            klave: "9059",
-            moon: "J06 - Himalia",
-            role: "MIT – Mitglieder",
-            status: "Ω -AKTIV",
-            message: "Willkommen in Jupiters Orbit, Don't forget to get the books"
-        },
-        "J-6024-07": {
-            orbit: "J",
-            klave: "6024",
-            moon: "J07 - Elara",
-            role: "MIT – Mitglieder",
-            status: "Ω -AKTIV",
-            message: "Willkommen in Jupiters Orbit, Don't forget to get the books"
-        },
-        "J-0000-99": {
-            orbit: "J",
-            klave: "0000",
-            moon: "J99 - TEST",
-            role: "Test User",
-            status: "Ω -TEST",
-            message: "This is a test entry."
+            message: "Willkommen in Jupiters Orbit!"
         }
     };
 
@@ -397,96 +372,6 @@
             location: "Theresienstr. 37/39/41",
             topic: "M1",
             duration: "4 Stunden"
-        },
-        {
-            type: "Jupiter",
-            day: "Freitag",
-            date: "2024-10-18",
-            end: "2025-02-28",
-            room: "C - 000",
-            location: "Theresienstr. 37/39/41",
-            topic: "M1",
-            duration: "4 Stunden"
-        },
-        {
-            type: "Vorlesung mit Prof. Udem",
-            day: "Dienstag",
-            date: "2024-10-15",
-            end: "2025-02-04",
-            room: "N 120",
-            location: "Geschw.-Scholl-Pl. 1 (N) - Großer Physiksaal (N 120)",
-            topic: "E1",
-            duration: "10:00 bis 12:00 c.t."
-        },
-        {
-            type: "Vorlesung mit Prof. Udem",
-            day: "Freitag",
-            date: "2024-10-18",
-            end: "2025-02-07",
-            room: "N 120",
-            location: "Geschw.-Scholl-Pl. 1 (N) - Großer Physiksaal (N 120)",
-            topic: "E1",
-            duration: "10:00 bis 12:00 c.t."
-        },
-        {
-            type: "Vorlesung mit Prof. Delft",
-            day: "Montag",
-            date: "2024-10-14",
-            end: "2025-02-03",
-            room: "N 120",
-            location: "Geschw.-Scholl-Pl. 1 (N) - Großer Physiksaal (N 120)",
-            topic: "T0",
-            duration: "14:00 bis 16:00 c.t."
-        },
-        {
-            type: "Vorlesung mit Prof. Delft",
-            day: "Mittwoch",
-            date: "2024-10-16",
-            end: "2025-02-05",
-            room: "N 120",
-            location: "Geschw.-Scholl-Pl. 1 (N) - Großer Physiksaal (N 120)",
-            topic: "T0",
-            duration: "08:00 bis 10:00 c.t."
-        },
-        {
-            type: "Zentralübung zur Vorlesung (T0)",
-            day: "Donnerstag",
-            date: "2024-10-17",
-            end: "2025-02-06",
-            room: "N 120",
-            location: "Geschw.-Scholl-Pl. 1 (N) - Großer Physiksaal (N 120)",
-            topic: "T0",
-            duration: "14:00 bis 16:00 c.t."
-        },
-        {
-            type: "Vorlesung mit PD. Dr. Zenk",
-            day: "Montag",
-            date: "2024-10-14",
-            end: "2025-02-03",
-            room: "C 123",
-            location: "Theresienstr. 41 - C 123",
-            topic: "M1",
-            duration: "12:00 bis 14:00 c.t."
-        },
-        {
-            type: "Vorlesung mit PD. Dr. Zenk",
-            day: "Donnerstag",
-            date: "2024-10-17",
-            end: "2025-02-06",
-            room: "N 120",
-            location: "Großer Physiksaal N 120",
-            topic: "M1",
-            duration: "10:00 bis 12:00 c.t."
-        },
-        {
-            type: "Zentralübung zur Vorlesung (M1)",
-            day: "Montag",
-            date: "2024-10-14",
-            end: "2025-02-03",
-            room: "B 138",
-            location: "Theresienstr. 39 - B 138",
-            topic: "M1",
-            duration: "16:00 bis 18:00 c.t."
         }
     ];
 
@@ -514,7 +399,7 @@
             errorDiv.style.display = "none";
             additionalInfo.style.display = "block";
 
-            // Display the next two appointments
+            // Display the next available appointments
             displayNextAppointments();
             appointmentBlock.style.display = "block"; // Show the appointment block
         } else {
@@ -526,45 +411,37 @@
         }
     }
 
-    // Function to display today's and tomorrow's appointments
-function displayNextAppointments() {
-    const today = new Date(); // Get current date
-    const tomorrow = new Date(today); // Create a new date object for tomorrow
-    tomorrow.setDate(today.getDate() + 1); // Set tomorrow's date
+    // Function to display the next available calendar day and its events
+    function displayNextAppointments() {
+        const today = new Date(); // Current date
+        let nextAppointmentDay;
 
-    const filteredAppointments = appointments.filter(appointment => {
-        const appointmentDate = new Date(appointment.date);
-        // Check if the appointment is either today or tomorrow
-        return (
-            appointmentDate.toDateString() === today.toDateString() || 
-            appointmentDate.toDateString() === tomorrow.toDateString()
-        );
-    });
+        // Find the next calendar day with events
+        for (let i = 0; i < appointments.length; i++) {
+            const appointmentDate = new Date(appointments[i].date);
+            if (appointmentDate >= today) {
+                nextAppointmentDay = appointmentDate;
+                break;
+            }
+        }
 
-    // Sort the appointments based on date and time
-    filteredAppointments.sort((a, b) => new Date(a.date) - new Date(b.date));
+        // Filter appointments for that next calendar day
+        const nextDayAppointments = appointments.filter(appointment => {
+            const appointmentDate = new Date(appointment.date);
+            return appointmentDate.toDateString() === nextAppointmentDay.toDateString();
+        });
 
-    // Get the first two appointments (today and tomorrow)
-    const appointment1 = filteredAppointments[0];
-    const appointment2 = filteredAppointments[1];
+        // Clear previous results
+        document.getElementById('nextAppointments').innerHTML = '';
 
-    // Populate appointment information
-    document.getElementById('appointmentDay1').textContent = appointment1.day;
-    document.getElementById('appointmentDate1').textContent = appointment1.date;
-    document.getElementById('appointmentType1').textContent = appointment1.type;
-    document.getElementById('appointmentRoom1').textContent = appointment1.room;
-    document.getElementById('appointmentLocation1').textContent = appointment1.location;
-    document.getElementById('appointmentTopic1').textContent = appointment1.topic;
-    document.getElementById('appointmentDuration1').textContent = appointment1.duration;
-
-    document.getElementById('appointmentDay2').textContent = appointment2.day;
-    document.getElementById('appointmentDate2').textContent = appointment2.date;
-    document.getElementById('appointmentType2').textContent = appointment2.type;
-    document.getElementById('appointmentRoom2').textContent = appointment2.room;
-    document.getElementById('appointmentLocation2').textContent = appointment2.location;
-    document.getElementById('appointmentTopic2').textContent = appointment2.topic;
-    document.getElementById('appointmentDuration2').textContent = appointment2.duration;
-}
+        // Populate appointment information for all events on that next day
+        nextDayAppointments.forEach(appointment => {
+            const appointmentHTML = `
+                <p><b>Day:</b> ${appointment.day}, <b>Date:</b> ${appointment.date}, <b>Type:</b> ${appointment.type}, <b>Room:</b> ${appointment.room}, <b>Location:</b> ${appointment.location}, <b>Topic:</b> ${appointment.topic}, <b>Duration:</b> ${appointment.duration}</p>
+            `;
+            document.getElementById('nextAppointments').innerHTML += appointmentHTML;
+        });
+    }
 
     // Toggle function for the Entscheidungsstrukturen blocks
     function toggleBlock(blockElement) {
@@ -574,4 +451,3 @@ function displayNextAppointments() {
 
 </body>
 </html>
-
